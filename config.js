@@ -1,15 +1,19 @@
-var config = {
-	database: {
-		host:	  'localhost', 	// database host
-		user: 	  'pokedex', 		// your database username
-		password: 'pikachu', 		// your database password
-		port: 	  3306, 		// default MySQL port
-		db: 	  'pokemon' 		// your database name
-	},
-	server: {
-		host: '127.0.0.1',
-		port: '3000'
-	}
-}
-
-module.exports = config
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var config = /** @class */ (function () {
+    function config() {
+    }
+    config.database = {
+        host: 'localhost',
+        user: 'pokedex',
+        password: 'pikachu',
+        port: 3306,
+        db: 'pokemon' // your database name
+    };
+    config.server = {
+        host: '127.0.0.1',
+        port: '3000'
+    };
+    return config;
+}());
+exports.default = config;
