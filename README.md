@@ -1,22 +1,16 @@
-Node.js, Express & MySQL: Simple Add, Edit, Delete, View (CRUD)
-========
+New repo for the project.
 
-A simple and basic CRUD application (Create, Read, Update, Delete) using Node.js, Express, MySQL & EJS Templating Engine.
+New environment uses EJS instead of react which is a lot easier to use.
 
-**Blog:** [Node.js, Express & MySQL: Simple Add, Edit, Delete, View (CRUD)](http://blog.chapagain.com.np/node-js-express-mysql-simple-add-edit-delete-view-crud/)
+Setting up the server:
 
-**Creating database and table**
+We're using MySQL. 
+To get started, create a user named "pokedex" with a password "pikachu".
+After doing that, create a database named "pokemon".
+Then, import pokedex.sql into the database to populate it.
 
-```
-create database test;
+Launching the app:
 
-use test;
-
-CREATE TABLE users (
-id int(11) NOT NULL auto_increment,
-name varchar(100) NOT NULL,
-age int(3) NOT NULL,
-email varchar(100) NOT NULL,
-PRIMARY KEY (id)
-);
-```
+Make sure you have Node installed on your computer.
+To start, type "npm install" into your command line.
+After that, use "node app.js" to start your app and head over to localhost:3000 to play around with it.
