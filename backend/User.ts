@@ -3,7 +3,7 @@ import Main from '../app';
 export default class User{
     private username: string;
     private password: string;
-    private loggedIn: boolean = false;
+    public isLoggedIn: boolean = false;
 
     constructor(username: string, password: string){
         this.username = username;
@@ -15,7 +15,7 @@ export default class User{
         Main.connection.query(sql);
     }
 
-    public logIn(){
+    public logIn(): boolean{
         let sql: string = "SELECT * FROM users " +
                           "WHERE username = \"" + this.username + "\" AND password = \"" + this.password + "\"";
         let that = this;
@@ -25,13 +25,15 @@ export default class User{
                 console.log("ERROR: " + err.message.toString());
             } else {
                 if(rows.length > 0){
-                    that.loggedIn = true;
+                    that.isLoggedIn = true;
                     console.log("Login successful");
                 }else{
                     console.log("Incorrect username or password");
                 }
             }
-        });
 
+
+        });
+        return that.isLoggedIn;
     }
 }

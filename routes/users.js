@@ -1,9 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
+var User_1 = require("../backend/User");
 var UsersRoute = (function () {
     function UsersRoute() {
     }
+    UsersRoute.showLoginForm = function (req, res) {
+        res.render('user/login', {
+            title: 'Login',
+            data: ''
+        });
+    };
+    UsersRoute.login = function (req, res) {
+        app_1.default.loggedInUser = new User_1.default(req.body.name, req.body.password);
+        app_1.default.loggedInUser.logIn();
+        if (app_1.default.loggedInUser.isLoggedIn) {
+            console.log("Login successful");
+        }
+        else {
+            console.log("Login failed");
+        }
+        var i = 0;
+    };
     UsersRoute.showUsers = function (req, res) {
         var sql = 'SELECT * FROM users ORDER BY id DESC';
         app_1.default.connection.query(sql, function (err, rows, fields) {

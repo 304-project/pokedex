@@ -1,9 +1,29 @@
 import Main from '../app';
 import * as express from "express"
+import User from "../backend/User";
 
 // SHOW LIST OF USERS
 
 export class UsersRoute {
+
+    public static showLoginForm(req: any, res: express.Response){
+        res.render('user/login', {
+            title: 'Login',
+            data: ''
+        });
+    }
+
+    public static login(req: any, res: express.Response){
+        Main.loggedInUser = new User(req.body.name, req.body.password);
+        Main.loggedInUser.logIn();
+
+        if(Main.loggedInUser.isLoggedIn){
+            console.log("Login successful");
+        }else{
+            console.log("Login failed")
+        }
+        var i = 0;
+    }
 
     public static showUsers(req: any, res: express.Response) {
         let sql: string = 'SELECT * FROM users ORDER BY id DESC';

@@ -37,6 +37,8 @@ var Main = (function () {
         Main.app.use(flash());
         Main.app.get('/', function (req, res) { index_1.IndexRoute.getIndex(req, res); });
         Main.app.get('/users', function (req, res) { users_1.UsersRoute.showUsers(req, res); });
+        Main.app.get('/users/login', function (req, res) { users_1.UsersRoute.showLoginForm(req, res); });
+        Main.app.post('/users/login', function (req, res) { users_1.UsersRoute.login(req, res); });
         Main.app.get('/users/add', function (req, res) { users_1.UsersRoute.showAddUserForm(req, res); });
         Main.app.post('/users/add', function (req, res) { users_1.UsersRoute.addNewUser(req, res); });
         Main.app.get('/users/edit/(:id)', function (req, res) { users_1.UsersRoute.showEditUserForm(req, res); });
@@ -54,6 +56,7 @@ var Main = (function () {
         port: config_1.default.database.port,
         database: config_1.default.database.db
     };
+    Main.loggedInUser = null;
     Main.app = express();
     Main.connection = mysql.createConnection(Main.dbOptions);
     return Main;
