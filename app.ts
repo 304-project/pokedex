@@ -1,6 +1,8 @@
 import config from "./config";
-import * as Pokemon from './routes/pokemon';
+
+import {UsersRoute} from "./routes/users";
 import {PokemonRoute} from "./routes/pokemon";
+import {IndexRoute} from "./routes/index";
 
 let express = require('express');
 let mysql = require('mysql');
@@ -113,15 +115,22 @@ export default class Main {
          * import routes/index.js
          * import routes/users.js
          */
-        let index = require('./routes/index');
-        let users = require('./routes/users');
+        // let index = require('./routes/index');
+
         // let pokemon = require('./routes/pokemon');
 
-        Main.app.use('/', index);
-        Main.app.use('/users', users);
-        Main.app.use('/pokemon', (req, res) => {
-            PokemonRoute.get(req, res);
-        });
+        // Main.app.use('/', index);
+        Main.app.get('/', (req, res) => { IndexRoute.getIndex(req, res); });
+
+        // Main.app.use('/users', users);
+        Main.app.get('/users', (req, res) => { UsersRoute.showUsers(req, res); });
+        Main.app.get('/users/add', (req, res) => { UsersRoute.showAddUserForm(req, res); });
+        Main.app.post('/users/add', (req, res) => { UsersRoute.addNewUser(req, res); });
+        Main.app.get('/users/edit/(:id)', (req, res) => { UsersRoute.showEditUserForm(req, res); });
+        Main.app.put('/users/edit/(:id)', (req, res) => { UsersRoute.editUser(req, res); });
+        Main.app.delete('/users/delete/(:id)', (req, res) => { UsersRoute.deleteUser(req, res); });
+
+        Main.app.use('/pokemon', (req, res) => { PokemonRoute.get(req, res); });
 
         Main.app.listen(3000, function(){
             console.log('Server running at port 3000: http://127.0.0.1:3000');

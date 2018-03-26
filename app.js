@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
+var users_1 = require("./routes/users");
 var pokemon_1 = require("./routes/pokemon");
+var index_1 = require("./routes/index");
 var express = require('express');
 var mysql = require('mysql');
 /**
@@ -87,14 +89,18 @@ var Main = /** @class */ (function () {
          * import routes/index.js
          * import routes/users.js
          */
-        var index = require('./routes/index');
-        var users = require('./routes/users');
+        // let index = require('./routes/index');
         // let pokemon = require('./routes/pokemon');
-        Main.app.use('/', index);
-        Main.app.use('/users', users);
-        Main.app.use('/pokemon', function (req, res) {
-            pokemon_1.PokemonRoute.get(req, res);
-        });
+        // Main.app.use('/', index);
+        Main.app.get('/', function (req, res) { index_1.IndexRoute.getIndex(req, res); });
+        // Main.app.use('/users', users);
+        Main.app.get('/users', function (req, res) { users_1.UsersRoute.showUsers(req, res); });
+        Main.app.get('/users/add', function (req, res) { users_1.UsersRoute.showAddUserForm(req, res); });
+        Main.app.post('/users/add', function (req, res) { users_1.UsersRoute.addNewUser(req, res); });
+        Main.app.get('/users/edit/(:id)', function (req, res) { users_1.UsersRoute.showEditUserForm(req, res); });
+        Main.app.put('/users/edit/(:id)', function (req, res) { users_1.UsersRoute.editUser(req, res); });
+        Main.app.delete('/users/delete/(:id)', function (req, res) { users_1.UsersRoute.deleteUser(req, res); });
+        Main.app.use('/pokemon', function (req, res) { pokemon_1.PokemonRoute.get(req, res); });
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
         });

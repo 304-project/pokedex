@@ -120,6 +120,7 @@ var UsersRoute = /** @class */ (function () {
             }
         });
     };
+    // EDIT USER POST ACTION
     UsersRoute.editUser = function (req, res) {
         req.assert('name', 'Name is required').notEmpty(); //Validate name
         req.assert('age', 'Age is required').notEmpty(); //Validate age
