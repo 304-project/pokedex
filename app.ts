@@ -1,4 +1,7 @@
 import config from "./config";
+import * as Pokemon from './routes/pokemon';
+import {PokemonRoute} from "./routes/pokemon";
+
 let express = require('express');
 let mysql = require('mysql');
 
@@ -10,7 +13,16 @@ let myConnection  = require('express-myconnection');
 
 
 export default class Main {
+     private static dbOptions = {
+        host:	  config.database.host,
+        user: 	  config.database.user,
+        password: config.database.password,
+        port: 	  config.database.port,
+        database: config.database.db
+    };
+
     public static app = express();
+    public static connection = mysql.createConnection(Main.dbOptions);
     constructor(){
         /**
          * Store database credentials in a separate config.js file
@@ -18,13 +30,7 @@ export default class Main {
          oad the file/module and its values
          */
 
-        let dbOptions = {
-            host:	  config.database.host,
-            user: 	  config.database.user,
-            password: config.database.password,
-            port: 	  config.database.port,
-            database: config.database.db
-        };
+
 
         /**
          * 3 strategies can be used
@@ -33,8 +39,7 @@ export default class Main {
          * request: Creates new connection per new request. Connection is auto close when response ends.
          */
 
-        Main.app.use(myConnection(mysql, dbOptions, 'pool'));
-
+        Main.app.use(myConnection(mysql, Main.dbOptions, 'request'));
         /**
          * setting up the templating view engine
          */
@@ -110,11 +115,13 @@ export default class Main {
          */
         let index = require('./routes/index');
         let users = require('./routes/users');
-        let pokemon = require('./routes/pokemon');
+        // let pokemon = require('./routes/pokemon');
 
         Main.app.use('/', index);
         Main.app.use('/users', users);
-        Main.app.use('/pokemon', pokemon);
+        Main.app.use('/pokemon', (req, res) => {
+            res.json(PokemonRoute.get(req, res));
+        });
 
         Main.app.listen(3000, function(){
             console.log('Server running at port 3000: http://127.0.0.1:3000');

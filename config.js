@@ -5,10 +5,10 @@ var config = /** @class */ (function () {
     }
     config.database = {
         host: 'localhost',
-        user: 'pokedex',
-        password: 'pikachu',
+        user: 'root',
+        password: 'root',
         port: 3306,
-        db: 'pokemon' // your database name
+        db: 'pokedex' // your database name
     };
     config.server = {
         host: '127.0.0.1',

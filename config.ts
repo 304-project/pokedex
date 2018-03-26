@@ -2,10 +2,10 @@ export default class config{
 
     public static database =  {
         host:	  'localhost', 	// database host
-        user: 	  'pokedex', 		// your database username
-        password: 'pikachu', 		// your database password
+        user: 	  'root', 		// your database username
+        password: 'root', 		// your database password
         port: 	  3306, 		// default MySQL port
-        db: 	  'pokemon' 		// your database name
+        db: 	  'pokedex' 		// your database name
     };
 
     public static server =  {

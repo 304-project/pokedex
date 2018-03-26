@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
+var pokemon_1 = require("./routes/pokemon");
 var express = require('express');
 var mysql = require('mysql');
 /**
@@ -15,20 +16,13 @@ var Main = /** @class */ (function () {
          * L
          oad the file/module and its values
          */
-        var dbOptions = {
-            host: config_1.default.database.host,
-            user: config_1.default.database.user,
-            password: config_1.default.database.password,
-            port: config_1.default.database.port,
-            database: config_1.default.database.db
-        };
         /**
          * 3 strategies can be used
          * single: Creates single database connection which is never closed.
          * pool: Creates pool of connections. Connection is auto release when response ends.
          * request: Creates new connection per new request. Connection is auto close when response ends.
          */
-        Main.app.use(myConnection(mysql, dbOptions, 'pool'));
+        Main.app.use(myConnection(mysql, Main.dbOptions, 'request'));
         /**
          * setting up the templating view engine
          */
@@ -95,15 +89,25 @@ var Main = /** @class */ (function () {
          */
         var index = require('./routes/index');
         var users = require('./routes/users');
-        var pokemon = require('./routes/pokemon');
+        // let pokemon = require('./routes/pokemon');
         Main.app.use('/', index);
         Main.app.use('/users', users);
-        Main.app.use('/pokemon', pokemon);
+        Main.app.use('/pokemon', function (req, res) {
+            res.json(pokemon_1.PokemonRoute.get(req, res));
+        });
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
         });
     }
+    Main.dbOptions = {
+        host: config_1.default.database.host,
+        user: config_1.default.database.user,
+        password: config_1.default.database.password,
+        port: config_1.default.database.port,
+        database: config_1.default.database.db
+    };
     Main.app = express();
+    Main.connection = mysql.createConnection(Main.dbOptions);
     return Main;
 }());
 exports.default = Main;
