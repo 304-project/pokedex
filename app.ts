@@ -120,7 +120,7 @@ export default class Main {
         Main.app.use('/', index);
         Main.app.use('/users', users);
         Main.app.use('/pokemon', (req, res) => {
-            res.json(PokemonRoute.get(req, res));
+            PokemonRoute.get(req, res);
         });
 
         Main.app.listen(3000, function(){

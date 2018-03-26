@@ -93,7 +93,7 @@ var Main = /** @class */ (function () {
         Main.app.use('/', index);
         Main.app.use('/users', users);
         Main.app.use('/pokemon', function (req, res) {
-            res.json(pokemon_1.PokemonRoute.get(req, res));
+            pokemon_1.PokemonRoute.get(req, res);
         });
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
