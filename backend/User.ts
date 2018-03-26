@@ -11,13 +11,13 @@ export default class User{
     }
 
     public register(){
-        let sql: string = "INSERT INTO users (" + this.username + ", " + this.password; //TODO: create users database table
+        let sql: string = "INSERT INTO users VALUES(\"" + this.username + "\", \"" + this.password + "\")"; //TODO: create users database table
         Main.connection.query(sql);
     }
 
     public logIn(){
         let sql: string = "SELECT * FROM users " +
-                          "WHERE username = " + this.username + "AND password = " + this.password;
+                          "WHERE username = \"" + this.username + "\" AND password = \"" + this.password + "\"";
         let that = this;
 
         Main.connection.query(sql, (err, rows, fields) => {
