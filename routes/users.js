@@ -74,20 +74,20 @@ var UsersRoute = (function () {
     };
     UsersRoute.login = function (req, res) {
         app_1.default.loggedInUser = new User_1.default(req.body.name, req.body.password);
-        var isLoggedIn = app_1.default.loggedInUser.logIn();
-        if (app_1.default.loggedInUser.isLoggedIn) {
-            req.flash('success', 'Login successful!');
-            res.render('user/login', {
-                title: 'Login',
-            });
-        }
-        else {
-            req.flash('error', 'Incorrect username or password');
-            res.render('user/login', {
-                title: 'Login',
-            });
-        }
-        var i = 0;
+        app_1.default.loggedInUser.logIn().then(function (isLoggedIn) {
+            if (isLoggedIn) {
+                req.flash('success', 'Login successful!');
+                res.render('user/login', {
+                    title: 'Login',
+                });
+            }
+            else {
+                req.flash('error', 'Incorrect username or password');
+                res.render('user/login', {
+                    title: 'Login',
+                });
+            }
+        });
     };
     UsersRoute.showUsers = function (req, res) {
         var sql = 'SELECT * FROM users ORDER BY id DESC';

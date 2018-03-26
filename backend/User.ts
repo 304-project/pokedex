@@ -14,28 +14,30 @@ export default class User{
         this.password = password;
     }
 
-    public register(){
-        let sql: string = "INSERT INTO users VALUES(\"" + this.username + "\", \"" + this.password + "\")"; //TODO: create users database table
-        Main.connection.query(sql);
-    }
+    // public register(){
+    //     let sql: string = "INSERT INTO users VALUES(\"" + this.username + "\", \"" + this.password + "\")"; //TODO: create users database table
+    //     Main.connection.query(sql);
+    // }
 
-    public logIn(): boolean{
+    public logIn(): Promise<boolean>{
         let sql: string = "SELECT * FROM users " +
                           "WHERE name = \"" + this.username + "\" AND password = \"" + this.password + "\"";
         let that = this;
 
-        return Main.connection.query(sql, (err: any, rows: any, fields: any) => {
-            if (err) {
-                console.log("ERROR: " + err.message.toString());
-            } else {
-                if(rows.length > 0){
-                    console.log("Login successful");
-                    that.isLoggedIn = true;
-                }else{
-                    console.log("Incorrect username or password");
+        return new Promise(function (resolve, reject) {
+            Main.connection.query(sql, (err: any, rows: any, fields: any) => {
+                if (err) {
+                    console.log("ERROR: " + err.message.toString());
+                } else {
+                    if(rows.length > 0){
+                        console.log("Login successful");
+                        that.isLoggedIn = true;
+                    }else{
+                        console.log("Incorrect username or password");
+                    }
                 }
-            }
-            return that.isLoggedIn;
+                return resolve(that.isLoggedIn);
+            });
         });
         // return that.isLoggedIn;
     }

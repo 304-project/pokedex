@@ -101,20 +101,19 @@ export class UsersRoute {
 
     public static login(req: any, res: express.Response) {
         Main.loggedInUser = new User(req.body.name, req.body.password);
-        let isLoggedIn: boolean = Main.loggedInUser.logIn();
-
-        if (Main.loggedInUser.isLoggedIn) {
-            req.flash('success', 'Login successful!');
-            res.render('user/login', {
-               title: 'Login',
-            });
-        } else {
-            req.flash('error', 'Incorrect username or password');
-            res.render('user/login', {
-                title: 'Login',
-            });
-        }
-        var i = 0;
+        Main.loggedInUser.logIn().then(function (isLoggedIn){
+            if (isLoggedIn) {
+                req.flash('success', 'Login successful!');
+                res.render('user/login', {
+                    title: 'Login',
+                });
+            } else {
+                req.flash('error', 'Incorrect username or password');
+                res.render('user/login', {
+                    title: 'Login',
+                });
+            }
+        });
     }
 
     public static showUsers(req: any, res: express.Response) {
