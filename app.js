@@ -39,6 +39,8 @@ var Main = (function () {
         Main.app.get('/users', function (req, res) { users_1.UsersRoute.showUsers(req, res); });
         Main.app.get('/users/login', function (req, res) { users_1.UsersRoute.showLoginForm(req, res); });
         Main.app.post('/users/login', function (req, res) { users_1.UsersRoute.login(req, res); });
+        Main.app.get('/users/register', function (req, res) { users_1.UsersRoute.showRegistrationForm(req, res); });
+        Main.app.post('/users/register', function (req, res) { users_1.UsersRoute.register(req, res); });
         Main.app.get('/users/add', function (req, res) { users_1.UsersRoute.showAddUserForm(req, res); });
         Main.app.post('/users/add', function (req, res) { users_1.UsersRoute.addNewUser(req, res); });
         Main.app.get('/users/edit/(:id)', function (req, res) { users_1.UsersRoute.showEditUserForm(req, res); });

@@ -5,22 +5,114 @@ import User from "../backend/User";
 // SHOW LIST OF USERS
 
 export class UsersRoute {
+    // REGISTER POST ACTION
+    public static register(req: any, res: express.Response) {
+        req.assert('name', 'Name is required').notEmpty();           //Validate name
+        req.assert('password', 'Name is required').notEmpty();           //Validate pass
+        req.assert('age', 'Age is required').notEmpty();             //Validate age
+        req.assert('email', 'A valid email is required').isEmail();  //Validate email
 
-    public static showLoginForm(req: any, res: express.Response){
+        var errors = req.validationErrors();
+
+        if (!errors) {   //No errors were found.  Passed Validation!
+
+            /********************************************
+             * Express-validator module
+
+             req.body.comment = 'a <span>comment</span>';
+             req.body.username = '   a user    ';
+
+             req.sanitize('comment').escape(); // returns 'a &lt;span&gt;comment&lt;/span&gt;'
+             req.sanitize('username').trim(); // returns 'a user'
+             ********************************************/
+            var user = {
+                name: req.sanitize('name').escape().trim(),
+                password: req.sanitize('password').escape().trim(),
+                age: req.sanitize('age').escape().trim(),
+                email: req.sanitize('email').escape().trim()
+            };
+
+
+            Main.connection.query('INSERT INTO users SET ?', user, function (err: any, result: any) {
+                //if(err) throw err
+                if (err) {
+                    req.flash('error', err);
+
+                    // render to views/user/add.ejs
+                    res.render('user/register', {
+                        title: 'Register',
+                        name: user.name,
+                        password: user.password,
+                        age: user.age,
+                        email: user.email
+                    })
+                } else {
+                    req.flash('success', 'Data added successfully!');
+                    console.log("New user registered successfully");
+                    // render to views/user/add.ejs
+                    res.render('user/register', {
+                        title: 'Register',
+                        name: '',
+                        password: '',
+                        age: '',
+                        email: ''
+                    })
+                }
+            });
+        }
+
+        else {   //Display errors to user
+            var error_msg = '';
+            errors.forEach(function (error: any) {
+                error_msg += error.msg + '<br>'
+            });
+            req.flash('error', error_msg);
+
+            /**
+             * Using req.body.name
+             * because req.param('name') is deprecated
+             */
+            res.render('user/register', {
+                title: 'Register',
+                name: req.body.name,
+                password: req.body.password,
+                age: req.body.age,
+                email: req.body.email
+            })
+        }
+    }
+    public static showRegistrationForm(req: any, res: express.Response) {
+        res.render('user/register', {
+            title: 'Register (Non-admin function)',
+            name: '',
+            password: '',
+            age: '',
+            email: ''
+        });
+    }
+
+    public static showLoginForm(req: any, res: express.Response) {
         res.render('user/login', {
             title: 'Login',
             data: ''
         });
     }
 
-    public static login(req: any, res: express.Response){
-        Main.loggedInUser = new User(req.body.name, req.body.password);
-        Main.loggedInUser.logIn();
 
-        if(Main.loggedInUser.isLoggedIn){
-            console.log("Login successful");
-        }else{
-            console.log("Login failed")
+    public static login(req: any, res: express.Response) {
+        Main.loggedInUser = new User(req.body.name, req.body.password);
+        let isLoggedIn: boolean = Main.loggedInUser.logIn();
+
+        if (Main.loggedInUser.isLoggedIn) {
+            req.flash('success', 'Login successful!');
+            res.render('user/login', {
+               title: 'Login',
+            });
+        } else {
+            req.flash('error', 'Incorrect username or password');
+            res.render('user/login', {
+                title: 'Login',
+            });
         }
         var i = 0;
     }
@@ -46,10 +138,9 @@ export class UsersRoute {
     }
 
 
-
     public static showAddUserForm(req: any, res: express.Response) {
         res.render('user/add', {
-            title: 'Add New User',
+            title: 'Add New User (Admin function)',
             name: '',
             age: '',
             email: ''
@@ -61,17 +152,13 @@ export class UsersRoute {
         req.assert('name', 'Name is required').notEmpty();           //Validate name
         req.assert('age', 'Age is required').notEmpty();             //Validate age
         req.assert('email', 'A valid email is required').isEmail();  //Validate email
-
         var errors = req.validationErrors();
 
         if (!errors) {   //No errors were found.  Passed Validation!
-
             /********************************************
              * Express-validator module
-
              req.body.comment = 'a <span>comment</span>';
              req.body.username = '   a user    ';
-
              req.sanitize('comment').escape(); // returns 'a &lt;span&gt;comment&lt;/span&gt;'
              req.sanitize('username').trim(); // returns 'a user'
              ********************************************/
@@ -81,31 +168,29 @@ export class UsersRoute {
                 email: req.sanitize('email').escape().trim()
             };
 
-            req.getConnection(function (error: any, conn: any) {
-                conn.query('INSERT INTO users SET ?', user, function (err: any, result: any) {
-                    //if(err) throw err
-                    if (err) {
-                        req.flash('error', err);
+            Main.connection.query('INSERT INTO users SET ?', user, function (err: any, result: any) {
+                //if(err) throw err
+                if (err) {
+                    req.flash('error', err);
 
-                        // render to views/user/add.ejs
-                        res.render('user/add', {
-                            title: 'Add New User',
-                            name: user.name,
-                            age: user.age,
-                            email: user.email
-                        })
-                    } else {
-                        req.flash('success', 'Data added successfully!');
+                    // render to views/user/add.ejs
+                    res.render('user/add', {
+                        title: 'Add New User',
+                        name: user.name,
+                        age: user.age,
+                        email: user.email
+                    })
+                } else {
+                    req.flash('success', 'Data added successfully!');
 
-                        // render to views/user/add.ejs
-                        res.render('user/add', {
-                            title: 'Add New User',
-                            name: '',
-                            age: '',
-                            email: ''
-                        })
-                    }
-                })
+                    // render to views/user/add.ejs
+                    res.render('user/add', {
+                        title: 'Add New User',
+                        name: '',
+                        age: '',
+                        email: ''
+                    })
+                }
             })
         }
         else {   //Display errors to user
@@ -127,7 +212,6 @@ export class UsersRoute {
             })
         }
     }
-
 
     public static showEditUserForm(req: any, res: express.Response) {
         Main.connection.query('SELECT * FROM users WHERE id = ' + req.params.id, function (err: any, rows: any, fields: any) {

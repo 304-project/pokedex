@@ -130,6 +130,9 @@ export default class Main {
         Main.app.get('/users/login', (req: any, res: any) => { UsersRoute.showLoginForm(req, res); });
         Main.app.post('/users/login', (req: any, res: any) => { UsersRoute.login(req, res); });
 
+        Main.app.get('/users/register', (req: any, res: any) => { UsersRoute.showRegistrationForm(req, res); });
+        Main.app.post('/users/register', (req: any, res: any) => { UsersRoute.register(req, res); });
+
         Main.app.get('/users/add', (req: any, res: any) => { UsersRoute.showAddUserForm(req, res); });
         Main.app.post('/users/add', (req: any, res: any) => { UsersRoute.addNewUser(req, res); });
 

@@ -1,9 +1,13 @@
 import Main from '../app';
 
 export default class User{
+    public isLoggedIn: boolean = false;
+
     private username: string;
     private password: string;
-    public isLoggedIn: boolean = false;
+    private age: number;
+    private email: string;
+    private privilegeLevel: number = 0; //0 = regular user, 1 = admin privileges
 
     constructor(username: string, password: string){
         this.username = username;
@@ -17,23 +21,22 @@ export default class User{
 
     public logIn(): boolean{
         let sql: string = "SELECT * FROM users " +
-                          "WHERE username = \"" + this.username + "\" AND password = \"" + this.password + "\"";
+                          "WHERE name = \"" + this.username + "\" AND password = \"" + this.password + "\"";
         let that = this;
 
-        Main.connection.query(sql, (err: any, rows: any, fields: any) => {
+        return Main.connection.query(sql, (err: any, rows: any, fields: any) => {
             if (err) {
                 console.log("ERROR: " + err.message.toString());
             } else {
                 if(rows.length > 0){
-                    that.isLoggedIn = true;
                     console.log("Login successful");
+                    that.isLoggedIn = true;
                 }else{
                     console.log("Incorrect username or password");
                 }
             }
-
-
+            return that.isLoggedIn;
         });
-        return that.isLoggedIn;
+        // return that.isLoggedIn;
     }
 }
