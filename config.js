@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var config = /** @class */ (function () {
+var config = (function () {
     function config() {
     }
     config.database = {
@@ -8,7 +8,7 @@ var config = /** @class */ (function () {
         user: 'root',
         password: 'root',
         port: 3306,
-        db: 'pokedex' // your database name
+        db: 'pokedex'
     };
     config.server = {
         host: '127.0.0.1',
@@ -17,3 +17,4 @@ var config = /** @class */ (function () {
     return config;
 }());
 exports.default = config;
+//# sourceMappingURL=config.js.map

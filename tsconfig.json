@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "filesGlob": [
+    "/backend/**/*.ts",
+    "/views/**/*.ts",
+    "/routes/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

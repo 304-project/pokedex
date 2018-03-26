@@ -20,7 +20,7 @@ export default class User{
                           "WHERE username = \"" + this.username + "\" AND password = \"" + this.password + "\"";
         let that = this;
 
-        Main.connection.query(sql, (err, rows, fields) => {
+        Main.connection.query(sql, (err: any, rows: any, fields: any) => {
             if (err) {
                 console.log("ERROR: " + err.message.toString());
             } else {

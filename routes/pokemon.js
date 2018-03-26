@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//pokemon.js
 var app_1 = require("../app");
-var PokemonRoute = /** @class */ (function () {
+var PokemonRoute = (function () {
     function PokemonRoute() {
     }
     PokemonRoute.get = function (req, res) {
@@ -25,3 +24,4 @@ var PokemonRoute = /** @class */ (function () {
     return PokemonRoute;
 }());
 exports.PokemonRoute = PokemonRoute;
+//# sourceMappingURL=pokemon.js.map

@@ -5,9 +5,9 @@ import * as express from "express"
 
 export class UsersRoute {
 
-    public static showUsers(req, res: express.Response) {
+    public static showUsers(req: any, res: express.Response) {
         let sql: string = 'SELECT * FROM users ORDER BY id DESC';
-        Main.connection.query(sql, (err, rows, fields) => {
+        Main.connection.query(sql, (err: any, rows: any, fields: any) => {
             //if(err) throw err
             if (err) {
                 req.flash('error', err);
@@ -27,7 +27,7 @@ export class UsersRoute {
 
 
 
-    public static showAddUserForm(req, res: express.Response) {
+    public static showAddUserForm(req: any, res: express.Response) {
         res.render('user/add', {
             title: 'Add New User',
             name: '',
@@ -37,7 +37,7 @@ export class UsersRoute {
     }
 
     // ADD NEW USER POST ACTION
-    public static addNewUser(req, res: express.Response) {
+    public static addNewUser(req: any, res: express.Response) {
         req.assert('name', 'Name is required').notEmpty();           //Validate name
         req.assert('age', 'Age is required').notEmpty();             //Validate age
         req.assert('email', 'A valid email is required').isEmail();  //Validate email
@@ -61,8 +61,8 @@ export class UsersRoute {
                 email: req.sanitize('email').escape().trim()
             };
 
-            req.getConnection(function (error, conn) {
-                conn.query('INSERT INTO users SET ?', user, function (err, result) {
+            req.getConnection(function (error: any, conn: any) {
+                conn.query('INSERT INTO users SET ?', user, function (err: any, result: any) {
                     //if(err) throw err
                     if (err) {
                         req.flash('error', err);
@@ -90,7 +90,7 @@ export class UsersRoute {
         }
         else {   //Display errors to user
             var error_msg = '';
-            errors.forEach(function (error) {
+            errors.forEach(function (error: any) {
                 error_msg += error.msg + '<br>'
             });
             req.flash('error', error_msg);
@@ -109,8 +109,8 @@ export class UsersRoute {
     }
 
 
-    public static showEditUserForm(req, res: express.Response) {
-        Main.connection.query('SELECT * FROM users WHERE id = ' + req.params.id, function (err, rows, fields) {
+    public static showEditUserForm(req: any, res: express.Response) {
+        Main.connection.query('SELECT * FROM users WHERE id = ' + req.params.id, function (err: any, rows: any, fields: any) {
             if (err) throw err;
 
             // if user not found
@@ -133,7 +133,7 @@ export class UsersRoute {
     }
 
     // EDIT USER POST ACTION
-    public static editUser(req, res: express.Response) {
+    public static editUser(req: any, res: express.Response) {
         req.assert('name', 'Name is required').notEmpty();           //Validate name
         req.assert('age', 'Age is required').notEmpty();             //Validate age
         req.assert('email', 'A valid email is required').isEmail();  //Validate email
@@ -156,7 +156,7 @@ export class UsersRoute {
                 age: req.sanitize('age').escape().trim(),
                 email: req.sanitize('email').escape().trim()
             };
-            Main.connection.query('UPDATE users SET ? WHERE id = ' + req.params.id, user, function (err, result) {
+            Main.connection.query('UPDATE users SET ? WHERE id = ' + req.params.id, user, function (err: any, result: any) {
                 //if(err) throw err
                 if (err) {
                     req.flash('error', err);
@@ -184,7 +184,7 @@ export class UsersRoute {
             })
         } else {   //Display errors to user
             var error_msg = '';
-            errors.forEach(function (error) {
+            errors.forEach(function (error: any) {
                 error_msg += error.msg + '<br>'
             });
             req.flash('error', error_msg);
@@ -203,9 +203,9 @@ export class UsersRoute {
         }
     }
 
-    public static deleteUser(req, res: express.Response) {
+    public static deleteUser(req: any, res: express.Response) {
         var user = {id: req.params.id};
-        Main.connection.query('DELETE FROM users WHERE id = ' + req.params.id, user, function (err, result) {
+        Main.connection.query('DELETE FROM users WHERE id = ' + req.params.id, user, function (err: any, result: any) {
             //if(err) throw err
             if (err) {
                 req.flash('error', err);

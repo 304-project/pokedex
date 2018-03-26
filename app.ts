@@ -81,7 +81,7 @@ export default class Main {
          * there are other ways of overriding as well
          * like using header & using query value
          */
-        Main.app.use(methodOverride(function (req, res) {
+        Main.app.use(methodOverride(function (req: any, res: any) {
             if (req.body && typeof req.body === 'object' && '_method' in req.body) {
                 // look in urlencoded POST bodies and delete it
                 let method = req.body._method;
@@ -120,17 +120,17 @@ export default class Main {
         // let pokemon = require('./routes/pokemon');
 
         // Main.app.use('/', index);
-        Main.app.get('/', (req, res) => { IndexRoute.getIndex(req, res); });
+        Main.app.get('/', (req: any, res: any) => { IndexRoute.getIndex(req, res); });
 
         // Main.app.use('/users', users);
-        Main.app.get('/users', (req, res) => { UsersRoute.showUsers(req, res); });
-        Main.app.get('/users/add', (req, res) => { UsersRoute.showAddUserForm(req, res); });
-        Main.app.post('/users/add', (req, res) => { UsersRoute.addNewUser(req, res); });
-        Main.app.get('/users/edit/(:id)', (req, res) => { UsersRoute.showEditUserForm(req, res); });
-        Main.app.put('/users/edit/(:id)', (req, res) => { UsersRoute.editUser(req, res); });
-        Main.app.delete('/users/delete/(:id)', (req, res) => { UsersRoute.deleteUser(req, res); });
+        Main.app.get('/users', (req: any, res: any) => { UsersRoute.showUsers(req, res); });
+        Main.app.get('/users/add', (req: any, res: any) => { UsersRoute.showAddUserForm(req, res); });
+        Main.app.post('/users/add', (req: any, res: any) => { UsersRoute.addNewUser(req, res); });
+        Main.app.get('/users/edit/(:id)', (req: any, res: any) => { UsersRoute.showEditUserForm(req, res); });
+        Main.app.put('/users/edit/(:id)', (req: any, res: any) => { UsersRoute.editUser(req, res); });
+        Main.app.delete('/users/delete/(:id)', (req: any, res: any) => { UsersRoute.deleteUser(req, res); });
 
-        Main.app.use('/pokemon', (req, res) => { PokemonRoute.get(req, res); });
+        Main.app.use('/pokemon', (req: any, res: any) => { PokemonRoute.get(req, res); });
 
         Main.app.listen(3000, function(){
             console.log('Server running at port 3000: http://127.0.0.1:3000');
