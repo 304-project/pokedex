@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
+var query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
 var PokemonRoute = (function () {
     function PokemonRoute() {
     }
     PokemonRoute.get = function (req, res) {
-        app_1.default.connection.query('SELECT * FROM pokemon', function (err, rows, fields) {
+        app_1.default.connection.query(query, function (err, rows, fields) {
             if (err) {
                 req.flash('error', err);
                 res.render('pokemon/list', {

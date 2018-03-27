@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
 var users_1 = require("./routes/users");
+var gyms_1 = require("./routes/gyms");
 var pokemon_1 = require("./routes/pokemon");
 var index_1 = require("./routes/index");
 var User_1 = require("./backend/User");
@@ -74,6 +75,9 @@ var Main = (function () {
         });
         Main.app.use('/pokemon', function (req, res) {
             pokemon_1.PokemonRoute.get(req, res);
+        });
+        Main.app.use('/gyms', function (req, res) {
+            gyms_1.GymsRoute.get(req, res);
         });
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');

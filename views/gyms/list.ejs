@@ -12,26 +12,24 @@
 <table width='80%' border=0>
 
 	<tr style='text-align:left; background-color:#CCC'>
-		<th>Pokedex ID</th>
-		<th>Name</th>
-		<th>Height</th>
-		<th>Weight</th>
+		<th>Leader</th>
+		<th>Region</th>
+		<th>Location</th>
 		<th>Type</th>
-		<th>Habitat</th>
+    	<th>Badge</th>
 	</tr>
 
-	<% if (data) { %>
-	<% data.forEach(function(pokemon){ %>
-		<tr>
-			<td><%= pokemon.pokedexId %></td>
-			<td><%= pokemon.name %></td>
-			<td><%= pokemon.height %></td>
-			<td><%= pokemon.weight %></td>
-			<td><%= pokemon.typeName %></td>
-			<td><%= pokemon.identifier %></td>
-		</tr>
-	<% }) %>
-	<% } %>
+    <% if (data) { %>
+    <% data.forEach(function(g){ %>
+	<tr>
+		<td><%= g.leader %></td>
+		<td><%= g.identifier %></td>
+		<td><%= g.locationName %></td>
+		<td><%= g.typeName %></td>
+		<td><%= g.badge %></td>
+	</tr>
+    <% }) %>
+    <% } %>
 
 </table>
 

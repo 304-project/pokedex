@@ -1,7 +1,9 @@
 import config from "./config";
 
 import {UsersRoute} from "./routes/users";
+import {GymsRoute} from "./routes/gyms";
 import {PokemonRoute} from "./routes/pokemon";
+
 import {IndexRoute} from "./routes/index";
 import User from "./backend/User";
 
@@ -171,12 +173,13 @@ export default class Main {
             PokemonRoute.get(req, res);
         });
 
+        Main.app.use('/gyms', (req: any, res: any) => {
+            GymsRoute.get(req, res);
+        });
+
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
         });
     }
 }
 new Main();
-
-
-
