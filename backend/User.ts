@@ -9,19 +9,28 @@ export default class User{
     private email: string;
     private privilegeLevel: number = 0; //0 = regular user, 1 = admin privileges
 
-    constructor(username: string, password: string){
-        this.username = username;
-        this.password = password;
+    constructor(){
+
     }
 
-    // public register(){
-    //     let sql: string = "INSERT INTO users VALUES(\"" + this.username + "\", \"" + this.password + "\")"; //TODO: create users database table
-    //     Main.connection.query(sql);
-    // }
+    public logout(): any {
+        this.isLoggedIn = false;
+        this.username = null;
+        this.password = null;
+        this.age = null;
+        this.email = null;
+        this.privilegeLevel = 0;
+    }
 
-    public logIn(): Promise<boolean>{
+    public getJson(): any{
+        //Separate function because we might change the way we parse it
+        let toRtn: any = JSON.stringify(this);
+        return JSON.stringify(this);
+    }
+
+    public logIn(username: string, password: string): Promise<boolean>{
         let sql: string = "SELECT * FROM users " +
-                          "WHERE name = \"" + this.username + "\" AND password = \"" + this.password + "\"";
+                          "WHERE name = \"" + username + "\" AND password = \"" + password + "\"";
         let that = this;
 
         return new Promise(function (resolve, reject) {
@@ -31,6 +40,12 @@ export default class User{
                 } else {
                     if(rows.length > 0){
                         console.log("Login successful");
+                        that.username = username;
+                        that.password = password;
+                        that.privilegeLevel = rows[0].privilegeLevel;
+                        that.email = rows[0].email;
+                        that.age = rows[0].age;
+
                         that.isLoggedIn = true;
                     }else{
                         console.log("Incorrect username or password");

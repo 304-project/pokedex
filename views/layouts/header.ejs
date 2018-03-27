@@ -4,12 +4,26 @@
 	</head>
 	<body>
 		<div>
+            <% let privilegeLevel = JSON.parse(loggedInUser).privilegeLevel %>
+            <% let isLoggedIn = JSON.parse(loggedInUser).isLoggedIn %>
+
 			<a href="/">Home</a> |
+
+			<% if(!isLoggedIn) { %>
 			<a href="/users/login">Login</a> |
 			<a href="/users/register">Register</a> |
+			<% } %>
+
+			<% if(privilegeLevel == 1) { %>
 			<a href="/users/add">Add New User</a> |
 			<a href="/users">All Users List</a> |
-			<a href="/pokemon">All Pokemon List</a>
+			<% } %>
+
+			<a href="/pokemon">All Pokemon List</a> |
+
+			<% if(isLoggedIn) { %>
+			<a href="/users/logout">Logout</a> |
+			<% } %>
 
 		</div>
 		<h1><%= title %></h1>

@@ -5,6 +5,15 @@ import User from "../backend/User";
 // SHOW LIST OF USERS
 
 export class UsersRoute {
+
+    public static logout(req: any, res: express.Response){
+        Main.loggedInUser.logout();
+        res.render('index', {
+            title: 'Pokedex',
+            loggedInUser: Main.loggedInUser.getJson()
+        });
+    }
+
     // REGISTER POST ACTION
     public static register(req: any, res: express.Response) {
         req.assert('name', 'Name is required').notEmpty();           //Validate name
@@ -44,19 +53,23 @@ export class UsersRoute {
                         name: user.name,
                         password: user.password,
                         age: user.age,
-                        email: user.email
+                        email: user.email,
+                        loggedInUser: Main.loggedInUser.getJson()
                     })
                 } else {
-                    req.flash('success', 'Data added successfully!');
-                    console.log("New user registered successfully");
-                    // render to views/user/add.ejs
-                    res.render('user/register', {
-                        title: 'Register',
-                        name: '',
-                        password: '',
-                        age: '',
-                        email: ''
-                    })
+                    req.flash('success', 'Registration successful!');
+                    Main.loggedInUser.logIn(user.name, user.password).then(function (){
+                        // render to views/user/add.ejs
+                        res.render('user/register', {
+                            title: 'Register',
+                            name: '',
+                            password: '',
+                            age: '',
+                            email: '',
+                            loggedInUser: Main.loggedInUser.getJson()
+                        });
+                    });
+
                 }
             });
         }
@@ -77,7 +90,8 @@ export class UsersRoute {
                 name: req.body.name,
                 password: req.body.password,
                 age: req.body.age,
-                email: req.body.email
+                email: req.body.email,
+                loggedInUser: Main.loggedInUser.getJson()
             })
         }
     }
@@ -87,30 +101,33 @@ export class UsersRoute {
             name: '',
             password: '',
             age: '',
-            email: ''
+            email: '',
+            loggedInUser: Main.loggedInUser.getJson()
         });
     }
 
     public static showLoginForm(req: any, res: express.Response) {
         res.render('user/login', {
             title: 'Login',
-            data: ''
+            data: '',
+            loggedInUser: Main.loggedInUser.getJson()
         });
     }
 
 
     public static login(req: any, res: express.Response) {
-        Main.loggedInUser = new User(req.body.name, req.body.password);
-        Main.loggedInUser.logIn().then(function (isLoggedIn){
+        Main.loggedInUser.logIn(req.body.name, req.body.password).then(function (isLoggedIn){
             if (isLoggedIn) {
                 req.flash('success', 'Login successful!');
                 res.render('user/login', {
                     title: 'Login',
+                    loggedInUser: Main.loggedInUser.getJson()
                 });
             } else {
                 req.flash('error', 'Incorrect username or password');
                 res.render('user/login', {
                     title: 'Login',
+                    loggedInUser: Main.loggedInUser.getJson()
                 });
             }
         });
@@ -124,13 +141,15 @@ export class UsersRoute {
                 req.flash('error', err);
                 res.render('user/list', {
                     title: 'User List',
-                    data: ''
+                    data: '',
+                    loggedInUser: Main.loggedInUser.getJson()
                 })
             } else {
                 // render to views/user/list.ejs template file
                 res.render('user/list', {
                     title: 'User List',
-                    data: rows
+                    data: rows,
+                    loggedInUser: Main.loggedInUser.getJson()
                 })
             }
         });
@@ -142,7 +161,8 @@ export class UsersRoute {
             title: 'Add New User (Admin function)',
             name: '',
             age: '',
-            email: ''
+            email: '',
+            loggedInUser: Main.loggedInUser.getJson()
         });
     }
 
@@ -177,7 +197,8 @@ export class UsersRoute {
                         title: 'Add New User',
                         name: user.name,
                         age: user.age,
-                        email: user.email
+                        email: user.email,
+                        loggedInUser: Main.loggedInUser.getJson()
                     })
                 } else {
                     req.flash('success', 'Data added successfully!');
@@ -187,7 +208,8 @@ export class UsersRoute {
                         title: 'Add New User',
                         name: '',
                         age: '',
-                        email: ''
+                        email: '',
+                        loggedInUser: Main.loggedInUser.getJson()
                     })
                 }
             })
@@ -207,7 +229,8 @@ export class UsersRoute {
                 title: 'Add New User',
                 name: req.body.name,
                 age: req.body.age,
-                email: req.body.email
+                email: req.body.email,
+                loggedInUser: Main.loggedInUser.getJson()
             })
         }
     }
@@ -229,7 +252,8 @@ export class UsersRoute {
                     id: rows[0].id,
                     name: rows[0].name,
                     age: rows[0].age,
-                    email: rows[0].email
+                    email: rows[0].email,
+                    loggedInUser: Main.loggedInUser.getJson()
                 })
             }
         })
@@ -270,7 +294,8 @@ export class UsersRoute {
                         id: req.params.id,
                         name: req.body.name,
                         age: req.body.age,
-                        email: req.body.email
+                        email: req.body.email,
+                        loggedInUser: Main.loggedInUser.getJson()
                     })
                 } else {
                     req.flash('success', 'Data updated successfully!');
@@ -281,7 +306,8 @@ export class UsersRoute {
                         id: req.params.id,
                         name: req.body.name,
                         age: req.body.age,
-                        email: req.body.email
+                        email: req.body.email,
+                        loggedInUser: Main.loggedInUser.getJson()
                     })
                 }
             })
@@ -301,7 +327,8 @@ export class UsersRoute {
                 id: req.params.id,
                 name: req.body.name,
                 age: req.body.age,
-                email: req.body.email
+                email: req.body.email,
+                loggedInUser: Main.loggedInUser.getJson()
             })
         }
     }

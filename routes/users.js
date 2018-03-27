@@ -1,10 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
-var User_1 = require("../backend/User");
 var UsersRoute = (function () {
     function UsersRoute() {
     }
+    UsersRoute.logout = function (req, res) {
+        app_1.default.loggedInUser.logout();
+        res.render('index', {
+            title: 'Pokedex',
+            loggedInUser: app_1.default.loggedInUser.getJson()
+        });
+    };
     UsersRoute.register = function (req, res) {
         req.assert('name', 'Name is required').notEmpty();
         req.assert('password', 'Name is required').notEmpty();
@@ -26,18 +32,21 @@ var UsersRoute = (function () {
                         name: user.name,
                         password: user.password,
                         age: user.age,
-                        email: user.email
+                        email: user.email,
+                        loggedInUser: app_1.default.loggedInUser.getJson()
                     });
                 }
                 else {
-                    req.flash('success', 'Data added successfully!');
-                    console.log("New user registered successfully");
-                    res.render('user/register', {
-                        title: 'Register',
-                        name: '',
-                        password: '',
-                        age: '',
-                        email: ''
+                    req.flash('success', 'Registration successful!');
+                    app_1.default.loggedInUser.logIn(user.name, user.password).then(function () {
+                        res.render('user/register', {
+                            title: 'Register',
+                            name: '',
+                            password: '',
+                            age: '',
+                            email: '',
+                            loggedInUser: app_1.default.loggedInUser.getJson()
+                        });
                     });
                 }
             });
@@ -53,7 +62,8 @@ var UsersRoute = (function () {
                 name: req.body.name,
                 password: req.body.password,
                 age: req.body.age,
-                email: req.body.email
+                email: req.body.email,
+                loggedInUser: app_1.default.loggedInUser.getJson()
             });
         }
     };
@@ -63,28 +73,31 @@ var UsersRoute = (function () {
             name: '',
             password: '',
             age: '',
-            email: ''
+            email: '',
+            loggedInUser: app_1.default.loggedInUser.getJson()
         });
     };
     UsersRoute.showLoginForm = function (req, res) {
         res.render('user/login', {
             title: 'Login',
-            data: ''
+            data: '',
+            loggedInUser: app_1.default.loggedInUser.getJson()
         });
     };
     UsersRoute.login = function (req, res) {
-        app_1.default.loggedInUser = new User_1.default(req.body.name, req.body.password);
-        app_1.default.loggedInUser.logIn().then(function (isLoggedIn) {
+        app_1.default.loggedInUser.logIn(req.body.name, req.body.password).then(function (isLoggedIn) {
             if (isLoggedIn) {
                 req.flash('success', 'Login successful!');
                 res.render('user/login', {
                     title: 'Login',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
             else {
                 req.flash('error', 'Incorrect username or password');
                 res.render('user/login', {
                     title: 'Login',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
         });
@@ -96,13 +109,15 @@ var UsersRoute = (function () {
                 req.flash('error', err);
                 res.render('user/list', {
                     title: 'User List',
-                    data: ''
+                    data: '',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
             else {
                 res.render('user/list', {
                     title: 'User List',
-                    data: rows
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
         });
@@ -112,7 +127,8 @@ var UsersRoute = (function () {
             title: 'Add New User (Admin function)',
             name: '',
             age: '',
-            email: ''
+            email: '',
+            loggedInUser: app_1.default.loggedInUser.getJson()
         });
     };
     UsersRoute.addNewUser = function (req, res) {
@@ -133,7 +149,8 @@ var UsersRoute = (function () {
                         title: 'Add New User',
                         name: user.name,
                         age: user.age,
-                        email: user.email
+                        email: user.email,
+                        loggedInUser: app_1.default.loggedInUser.getJson()
                     });
                 }
                 else {
@@ -142,7 +159,8 @@ var UsersRoute = (function () {
                         title: 'Add New User',
                         name: '',
                         age: '',
-                        email: ''
+                        email: '',
+                        loggedInUser: app_1.default.loggedInUser.getJson()
                     });
                 }
             });
@@ -157,7 +175,8 @@ var UsersRoute = (function () {
                 title: 'Add New User',
                 name: req.body.name,
                 age: req.body.age,
-                email: req.body.email
+                email: req.body.email,
+                loggedInUser: app_1.default.loggedInUser.getJson()
             });
         }
     };
@@ -175,7 +194,8 @@ var UsersRoute = (function () {
                     id: rows[0].id,
                     name: rows[0].name,
                     age: rows[0].age,
-                    email: rows[0].email
+                    email: rows[0].email,
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
         });
@@ -199,7 +219,8 @@ var UsersRoute = (function () {
                         id: req.params.id,
                         name: req.body.name,
                         age: req.body.age,
-                        email: req.body.email
+                        email: req.body.email,
+                        loggedInUser: app_1.default.loggedInUser.getJson()
                     });
                 }
                 else {
@@ -209,7 +230,8 @@ var UsersRoute = (function () {
                         id: req.params.id,
                         name: req.body.name,
                         age: req.body.age,
-                        email: req.body.email
+                        email: req.body.email,
+                        loggedInUser: app_1.default.loggedInUser.getJson()
                     });
                 }
             });
@@ -225,7 +247,8 @@ var UsersRoute = (function () {
                 id: req.params.id,
                 name: req.body.name,
                 age: req.body.age,
-                email: req.body.email
+                email: req.body.email,
+                loggedInUser: app_1.default.loggedInUser.getJson()
             });
         }
     };

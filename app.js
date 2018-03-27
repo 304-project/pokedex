@@ -4,6 +4,7 @@ var config_1 = require("./config");
 var users_1 = require("./routes/users");
 var pokemon_1 = require("./routes/pokemon");
 var index_1 = require("./routes/index");
+var User_1 = require("./backend/User");
 var express = require('express');
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
@@ -35,18 +36,45 @@ var Main = (function () {
             cookie: { maxAge: 60000 }
         }));
         Main.app.use(flash());
-        Main.app.get('/', function (req, res) { index_1.IndexRoute.getIndex(req, res); });
-        Main.app.get('/users', function (req, res) { users_1.UsersRoute.showUsers(req, res); });
-        Main.app.get('/users/login', function (req, res) { users_1.UsersRoute.showLoginForm(req, res); });
-        Main.app.post('/users/login', function (req, res) { users_1.UsersRoute.login(req, res); });
-        Main.app.get('/users/register', function (req, res) { users_1.UsersRoute.showRegistrationForm(req, res); });
-        Main.app.post('/users/register', function (req, res) { users_1.UsersRoute.register(req, res); });
-        Main.app.get('/users/add', function (req, res) { users_1.UsersRoute.showAddUserForm(req, res); });
-        Main.app.post('/users/add', function (req, res) { users_1.UsersRoute.addNewUser(req, res); });
-        Main.app.get('/users/edit/(:id)', function (req, res) { users_1.UsersRoute.showEditUserForm(req, res); });
-        Main.app.put('/users/edit/(:id)', function (req, res) { users_1.UsersRoute.editUser(req, res); });
-        Main.app.delete('/users/delete/(:id)', function (req, res) { users_1.UsersRoute.deleteUser(req, res); });
-        Main.app.use('/pokemon', function (req, res) { pokemon_1.PokemonRoute.get(req, res); });
+        Main.app.get('/', function (req, res) {
+            index_1.IndexRoute.getIndex(req, res);
+        });
+        Main.app.get('/users', function (req, res) {
+            users_1.UsersRoute.showUsers(req, res);
+        });
+        Main.app.get('/users/login', function (req, res) {
+            users_1.UsersRoute.showLoginForm(req, res);
+        });
+        Main.app.post('/users/login', function (req, res) {
+            users_1.UsersRoute.login(req, res);
+        });
+        Main.app.get('/users/register', function (req, res) {
+            users_1.UsersRoute.showRegistrationForm(req, res);
+        });
+        Main.app.post('/users/register', function (req, res) {
+            users_1.UsersRoute.register(req, res);
+        });
+        Main.app.get('/users/add', function (req, res) {
+            users_1.UsersRoute.showAddUserForm(req, res);
+        });
+        Main.app.post('/users/add', function (req, res) {
+            users_1.UsersRoute.addNewUser(req, res);
+        });
+        Main.app.get('/users/edit/(:id)', function (req, res) {
+            users_1.UsersRoute.showEditUserForm(req, res);
+        });
+        Main.app.put('/users/edit/(:id)', function (req, res) {
+            users_1.UsersRoute.editUser(req, res);
+        });
+        Main.app.delete('/users/delete/(:id)', function (req, res) {
+            users_1.UsersRoute.deleteUser(req, res);
+        });
+        Main.app.get('/users/logout', function (req, res) {
+            users_1.UsersRoute.logout(req, res);
+        });
+        Main.app.use('/pokemon', function (req, res) {
+            pokemon_1.PokemonRoute.get(req, res);
+        });
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
         });
@@ -58,7 +86,7 @@ var Main = (function () {
         port: config_1.default.database.port,
         database: config_1.default.database.db
     };
-    Main.loggedInUser = null;
+    Main.loggedInUser = new User_1.default();
     Main.app = express();
     Main.connection = mysql.createConnection(Main.dbOptions);
     return Main;

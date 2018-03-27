@@ -10,12 +10,14 @@ export class PokemonRoute {
                 req.flash('error', err);
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
-                    data: ''
+                    data: '',
+                    loggedInUser: Main.loggedInUser.getJson()
                 });
             } else {
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
-                    data: rows
+                    data: rows,
+                    loggedInUser: Main.loggedInUser.getJson()
                 });
             }
         });

@@ -12,28 +12,28 @@ let mysql = require('mysql');
  * This middleware provides a consistent API
  * for MySQL connections during request/response life cycle
  */
-let myConnection  = require('express-myconnection');
+let myConnection = require('express-myconnection');
 
 
 export default class Main {
-     private static dbOptions = {
-        host:	  config.database.host,
-        user: 	  config.database.user,
+    private static dbOptions = {
+        host: config.database.host,
+        user: config.database.user,
         password: config.database.password,
-        port: 	  config.database.port,
+        port: config.database.port,
         database: config.database.db
     };
 
-     public static loggedInUser: User = null;
+    public static loggedInUser: User = new User();
     public static app = express();
     public static connection = mysql.createConnection(Main.dbOptions);
-    constructor(){
+
+    constructor() {
         /**
          * Store database credentials in a separate config.js file
          * L
          oad the file/module and its values
          */
-
 
 
         /**
@@ -67,7 +67,7 @@ export default class Main {
          * (which is how browsers tend to send form data from regular forms set to POST)
          * and exposes the resulting object (containing the keys and values) on req.body.
          */
-        Main.app.use(bodyParser.urlencoded({ extended: true }));
+        Main.app.use(bodyParser.urlencoded({extended: true}));
         Main.app.use(bodyParser.json());
 
 
@@ -109,7 +109,7 @@ export default class Main {
             secret: 'keyboard cat',
             resave: false,
             saveUninitialized: true,
-            cookie: { maxAge: 60000 }
+            cookie: {maxAge: 60000}
         }));
         Main.app.use(flash());
 
@@ -122,28 +122,56 @@ export default class Main {
         // let pokemon = require('./routes/pokemon');
 
         // Main.app.use('/', index);
-        Main.app.get('/', (req: any, res: any) => { IndexRoute.getIndex(req, res); });
+        Main.app.get('/', (req: any, res: any) => {
+            IndexRoute.getIndex(req, res);
+        });
 
 
-        Main.app.get('/users', (req: any, res: any) => { UsersRoute.showUsers(req, res); });
+        Main.app.get('/users', (req: any, res: any) => {
+            UsersRoute.showUsers(req, res);
+        });
 
-        Main.app.get('/users/login', (req: any, res: any) => { UsersRoute.showLoginForm(req, res); });
-        Main.app.post('/users/login', (req: any, res: any) => { UsersRoute.login(req, res); });
+        Main.app.get('/users/login', (req: any, res: any) => {
+            UsersRoute.showLoginForm(req, res);
+        });
+        Main.app.post('/users/login', (req: any, res: any) => {
+            UsersRoute.login(req, res);
+        });
 
-        Main.app.get('/users/register', (req: any, res: any) => { UsersRoute.showRegistrationForm(req, res); });
-        Main.app.post('/users/register', (req: any, res: any) => { UsersRoute.register(req, res); });
+        Main.app.get('/users/register', (req: any, res: any) => {
+            UsersRoute.showRegistrationForm(req, res);
+        });
+        Main.app.post('/users/register', (req: any, res: any) => {
+            UsersRoute.register(req, res);
+        });
 
-        Main.app.get('/users/add', (req: any, res: any) => { UsersRoute.showAddUserForm(req, res); });
-        Main.app.post('/users/add', (req: any, res: any) => { UsersRoute.addNewUser(req, res); });
+        Main.app.get('/users/add', (req: any, res: any) => {
+            UsersRoute.showAddUserForm(req, res);
+        });
+        Main.app.post('/users/add', (req: any, res: any) => {
+            UsersRoute.addNewUser(req, res);
+        });
 
-        Main.app.get('/users/edit/(:id)', (req: any, res: any) => { UsersRoute.showEditUserForm(req, res); });
-        Main.app.put('/users/edit/(:id)', (req: any, res: any) => { UsersRoute.editUser(req, res); });
+        Main.app.get('/users/edit/(:id)', (req: any, res: any) => {
+            UsersRoute.showEditUserForm(req, res);
+        });
+        Main.app.put('/users/edit/(:id)', (req: any, res: any) => {
+            UsersRoute.editUser(req, res);
+        });
 
-        Main.app.delete('/users/delete/(:id)', (req: any, res: any) => { UsersRoute.deleteUser(req, res); });
+        Main.app.delete('/users/delete/(:id)', (req: any, res: any) => {
+            UsersRoute.deleteUser(req, res);
+        });
 
-        Main.app.use('/pokemon', (req: any, res: any) => { PokemonRoute.get(req, res); });
+        Main.app.get('/users/logout', (req: any, res: any) => {
+            UsersRoute.logout(req, res);
+        });
 
-        Main.app.listen(3000, function(){
+        Main.app.use('/pokemon', (req: any, res: any) => {
+            PokemonRoute.get(req, res);
+        });
+
+        Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
         });
     }

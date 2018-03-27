@@ -10,13 +10,15 @@ var PokemonRoute = (function () {
                 req.flash('error', err);
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
-                    data: ''
+                    data: '',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
             else {
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
-                    data: rows
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
         });
