@@ -3,6 +3,7 @@ import Main from '../app';
 import * as express from "express"
 
 export class PokemonRoute {
+
     public static get(req: any, res: express.Response) { //, next: express.NextFunction){
         Main.connection.query('SELECT * FROM pokemon', (err: any, rows: any, fields: any) => {
             if (err) {
@@ -19,4 +20,9 @@ export class PokemonRoute {
             }
         });
     }
+
+    public static search(req: any, res: express.Response){
+        
+    }
+
 }

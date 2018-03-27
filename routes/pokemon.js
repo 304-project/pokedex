@@ -21,6 +21,8 @@ var PokemonRoute = (function () {
             }
         });
     };
+    PokemonRoute.search = function (req, res) {
+    };
     return PokemonRoute;
 }());
 exports.PokemonRoute = PokemonRoute;
