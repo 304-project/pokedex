@@ -23,6 +23,7 @@
 
 			<% if(isLoggedIn) { %>
 			<a href="/users/logout">Logout</a> |
+			Welcome, <%= JSON.parse(loggedInUser).username; %>
 			<% } %>
 
 		</div>
