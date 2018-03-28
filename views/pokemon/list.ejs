@@ -9,10 +9,37 @@
 	<p style="color:green"><%- messages.success %></p>
 <% } %>
 
+<form action="/pokemon/get" method="get" name="form1">
+	<table width="25%" border="0">
+		<tr>
+			<td>Pokedex ID</td>
+			<td><input type="text" name="name" id="name" value="<%= id %>"/></td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" id="name" value="<%= name %>"/></td>
+		</tr>
+		<tr>
+			<td>Type</td>
+			<td><input type="text" name="name" id="name" value="<%= type %>"/></td>
+		</tr>
+		<tr>
+			<td>Habitat</td>
+			<td><input type="text" name="name" id="name" value="<%= habitat %>"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" name="Submit" value="Search"/></td>
+		</tr>
+	</table>
+</form>
+
 <table width='80%' border=0>
 
 	<tr style='text-align:left; background-color:#CCC'>
-		<th>Pokedex ID</th>
+		<th>Pokedex ID
+
+            <%= JSON.stringify(query) %></th>
 		<th>Name</th>
 		<th>Height</th>
 		<th>Weight</th>
