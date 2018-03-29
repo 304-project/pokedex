@@ -169,9 +169,18 @@ export default class Main {
             UsersRoute.logout(req, res);
         });
 
-        Main.app.use('/pokemon', (req: any, res: any) => {
+        /*Main.app.use('/pokemon', (req: any, res: any) => {
             PokemonRoute.get(req, res);
+        });*/
+
+        Main.app.get('/pokemon', (req: any, res: any) => {
+            PokemonRoute.showEvaluatePokemonForm(req, res);
         });
+
+        Main.app.post('/pokemon/evaluate', (req: any, res: any) => {
+            PokemonRoute.evaluatePokemon(req, res);
+        });
+
 
         Main.app.use('/gyms', (req: any, res: any) => {
             GymsRoute.get(req, res);

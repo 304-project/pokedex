@@ -1,0 +1,187 @@
+
+<%- include ../layouts/header.ejs %>
+
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+<form action="/pokemon/evaluate" method="post" name="form1">
+
+	<div style="float:left">
+			<table width="45%" border="0">
+				<caption> Filter </caption>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="filterName" id="name" value="" /></td>
+				</tr>
+				<tr>
+					<td>Id</td>
+					<td><input type="text" name="filterId" id="id" value="" /></td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td><input type="text" name="filterType" id="type" value="" /></td>
+				</tr>
+				<tr>
+					<td>Habitat</td>
+					<td><input type="text" name="filterHabitat" value="" /></td>
+				</tr>
+				<tr>
+					<td>Height</td>
+					<td>
+						<select name="filterHeight">
+							<option value="">...</option>
+							<option value="heightmax">Maximum</option>
+							<option value="heightmin">Minimum</option>
+							<option value="heightvalue">Value</option>
+							<option value="heightRange">Range</option>
+						</select>
+						<input type="text" name="filterHeight1" value="" /><br/>
+						<input type="text" name="filterHeight2" value="" /><br/>
+					</td>
+				</tr>
+				<tr>
+					<td>Weight</td>
+					<td><select name="filterWeight">
+							<option value="">...</option>
+							<option value="weightmax">Maximum</option>
+							<option value="weightmin">Minimum</option>
+							<option value="weightvalue">Value</option>
+							<option value="weightRange">Range</option>
+						</select>
+						<input type="text" name="filterWeight1" value="" /><br/>
+						<input type="text" name="filterWeight2" value="" /><br/>
+					</td>
+
+				</tr>
+				<tr><td><br/></td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td>
+						<input type="submit" name="ViewAll" value="View All" style = "Width: 1300%" />
+					</td>
+				</tr>
+			</table>
+	</div>
+	<div style="float:left">
+			<table width="45%" border="0">
+				<caption> Group </caption>
+				<tr><td><br/></td>
+					<td><select name="groupEval">
+							<option value="">...</option>
+							<option value="Count">Count</option>
+							<option value="Min">Maximum</option>
+							<option value="Max">Minimum</option>
+							<option value="Sum">Sum</option>
+							<option value="Avg">Avg</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="Type" />Type</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="Habitat" />Habitat</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="Region" />Region</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="submit" name="Submit" value="Submit" /></td>
+				</tr>
+
+			</table>
+	</div>
+
+	<div style="float:left">
+		<table width="55%" border="0">
+			<tr><td><br/></td>
+			</tr>
+			<tr><td><br/></td>
+			</tr>
+
+		</table>
+
+	</div>
+
+	<div style="float:left">
+		<table width="25%" border="0" style="margin-left:100px;">
+			<caption> Sort </caption>
+			<tr><td><br/></td>
+				<td>
+					<select name="sortDirection">
+						<option value="">...</option>
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sortValue" value="pokedexId" /> Id </td>
+
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sortValue" value="name" />Name</td>
+
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sortValue" value="typename" />Type</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sortValue" value="identifier" />Habitat</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sortValue" value="weight" />Weight</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sortValue" value="height" />Height</td>
+			</tr>
+
+		</table>
+
+	</div>
+
+
+
+</form>
+
+
+
+
+
+
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../layouts/footer.ejs %>

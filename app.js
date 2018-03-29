@@ -73,8 +73,11 @@ var Main = (function () {
         Main.app.get('/users/logout', function (req, res) {
             users_1.UsersRoute.logout(req, res);
         });
-        Main.app.use('/pokemon', function (req, res) {
-            pokemon_1.PokemonRoute.get(req, res);
+        Main.app.get('/pokemon', function (req, res) {
+            pokemon_1.PokemonRoute.showEvaluatePokemonForm(req, res);
+        });
+        Main.app.post('/pokemon/evaluate', function (req, res) {
+            pokemon_1.PokemonRoute.evaluatePokemon(req, res);
         });
         Main.app.use('/gyms', function (req, res) {
             gyms_1.GymsRoute.get(req, res);
