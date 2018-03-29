@@ -1,11 +1,19 @@
 //pokemon.js
 import Main from '../app';
 import * as express from "express"
+import PokemonQuery from '../backend/PokemonQuery';
 
 //const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
-const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId order by p.pokedexId asc';
-export class PokemonRoute {
+const origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId';
+const origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName';
+const origSort = 'p.pokedexId';
+const origSortOrder = 'asc';
+var origBody = {'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder};
+var pq = new PokemonQuery();
+pq.setAndParseReqBody(origBody);
+var query = pq.buildSqlQuery();
 
+export class PokemonRoute {
     public static get(req: any, res: express.Response) { //, next: express.NextFunction){
         Main.connection.query(query, (err: any, rows: any, fields: any) => {
             if (err) {
@@ -53,8 +61,6 @@ export class PokemonRoute {
     }
 
     public static evaluatePokemon(req: any, res: express.Response) {
-
-
         let usedQuery = null ;
         let tempval = req.body.groupValue;
 

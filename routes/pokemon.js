@@ -1,7 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
-var query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId order by p.pokedexId asc';
+var PokemonQuery_1 = require("../backend/PokemonQuery");
+var origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId';
+var origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName';
+var origSort = 'p.pokedexId';
+var origSortOrder = 'asc';
+var origBody = { 'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder };
+var pq = new PokemonQuery_1.default();
+pq.setAndParseReqBody(origBody);
+var query = pq.buildSqlQuery();
 var PokemonRoute = (function () {
     function PokemonRoute() {
     }
