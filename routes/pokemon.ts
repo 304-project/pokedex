@@ -65,13 +65,15 @@ export class PokemonRoute {
         else{}
 
         let tempval2 = req.body.groupBy;
+        let tempval4 = tempval2;
 
         if (tempval2 === 'Type'){ tempval2 = 'typeName';}
         else if (tempval2 === 'Habitat'){ tempval2 = 'identifier';}
         else{}
 
         if (req.body.groupValue === req.body.groupBy){
-            tempval2 = "pokedexID"
+            tempval2 = 'pokedexId' ;
+            tempval4 = tempval2;
         }
 
         const groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 +') as ' + req.body.groupEval + ',gsub.'+ tempval + ' from (' + query + ') gsub group by gsub.' + tempval ;
@@ -91,12 +93,6 @@ export class PokemonRoute {
             tempval3 = tempsortValue ;
         }
 
-        console.log("im here");
-        console.log("im here");
-        console.log("tempsortvalue");
-        console.log(tempsortValue);
-
-
 
         const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +tempsortValue + ' ' +  req.body.sortDirection;
 
@@ -105,13 +101,6 @@ export class PokemonRoute {
         }else{
             usedQuery = sortQuery;
         }
-
-
-        console.log("im here");
-        console.log("im here");
-        console.log("im here");
-        console.log(usedQuery);
-
 
         Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
             if (err) {
@@ -127,7 +116,7 @@ export class PokemonRoute {
                     title: 'Pokemon List',
                     groupValue:req.body.groupValue ,
                     groupHeader:tempval,
-                    groupEval:req.body.groupEval + '(' + req.body.groupBy+ ')',
+                    groupEval:req.body.groupEval + '(' + tempval2 + ')',
                     subGroupEval:tempval3,
                     data: rows,
                     loggedInUser: Main.loggedInUser.getJson()

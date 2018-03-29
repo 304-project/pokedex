@@ -58,6 +58,7 @@ var PokemonRoute = (function () {
         }
         else { }
         var tempval2 = req.body.groupBy;
+        var tempval4 = tempval2;
         if (tempval2 === 'Type') {
             tempval2 = 'typeName';
         }
@@ -66,7 +67,8 @@ var PokemonRoute = (function () {
         }
         else { }
         if (req.body.groupValue === req.body.groupBy) {
-            tempval2 = "pokedexID";
+            tempval2 = 'pokedexId';
+            tempval4 = tempval2;
         }
         var groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 + ') as ' + req.body.groupEval + ',gsub.' + tempval + ' from (' + query + ') gsub group by gsub.' + tempval;
         if ((req.body.groupEval === "") || !(req.body.groupValue)) {
@@ -81,20 +83,12 @@ var PokemonRoute = (function () {
             tempsortValue = req.body.groupEval;
             tempval3 = tempsortValue;
         }
-        console.log("im here");
-        console.log("im here");
-        console.log("tempsortvalue");
-        console.log(tempsortValue);
         var sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' + tempsortValue + ' ' + req.body.sortDirection;
         if (req.body.sortDirection === "" || !(req.body.sortValue)) {
         }
         else {
             usedQuery = sortQuery;
         }
-        console.log("im here");
-        console.log("im here");
-        console.log("im here");
-        console.log(usedQuery);
         app_1.default.connection.query(usedQuery, function (err, rows, fields) {
             if (err) {
                 req.flash('error', err);
@@ -109,7 +103,7 @@ var PokemonRoute = (function () {
                     title: 'Pokemon List',
                     groupValue: req.body.groupValue,
                     groupHeader: tempval,
-                    groupEval: req.body.groupEval + '(' + req.body.groupBy + ')',
+                    groupEval: req.body.groupEval + '(' + tempval2 + ')',
                     subGroupEval: tempval3,
                     data: rows,
                     loggedInUser: app_1.default.loggedInUser.getJson()
