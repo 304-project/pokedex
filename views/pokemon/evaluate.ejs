@@ -9,80 +9,161 @@
 	<p style="color:green"><%- messages.success %></p>
 <% } %>
 
-<div style = float
+<form action="/pokemon/evaluate" method="post" name="form1">
 
-<<form action="/pokemon/filter" method="post" name="form1">
+	<div style="float:left">
+			<table width="45%" border="0">
+				<caption> Filter </caption>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="filterName" id="name" value="" /></td>
+				</tr>
+				<tr>
+					<td>Id</td>
+					<td><input type="text" name="filterId" id="id" value="" /></td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td><input type="text" name="filterType" id="type" value="" /></td>
+				</tr>
+				<tr>
+					<td>Habitat</td>
+					<td><input type="text" name="filterHabitat" value="" /></td>
+				</tr>
+				<tr>
+					<td>Height</td>
+					<td>
+						<select>
+							<option value="">...</option>
+							<option value="heightmax">Maximum</option>
+							<option value="heightmin">Minimum</option>
+							<option value="heightvalue">Value</option>
+							<option value="heightRange">Range</option>
+						</select>
+						<input type="text" name="filterHeight1" value="" /><br/>
+						<input type="text" name="filterHeight2" value="" /><br/>
+					</td>
+				</tr>
+				<tr>
+					<td>Weight</td>
+					<td><select>
+							<option value="">...</option>
+							<option value="weightmax">Maximum</option>
+							<option value="weightmin">Minimum</option>
+							<option value="weightvalue">Value</option>
+							<option value="weightRange">Range</option>
+						</select>
+						<input type="text" name="filterWeight1" value="" /><br/>
+						<input type="text" name="filterWeight2" value="" /><br/>
+					</td>
 
-	<table width="25%" border="10">
-		<tr>
-			<td>Name</td>
-			<td><input type="text" name="name" value="<%= name %>" /></td>
-		</tr>
-		<tr>
-			<td>Type</td>
-			<td><input type="text" name="type" id="type" value="<%= type %>" /></td>
-		</tr>
-		<tr>
-			<td>Habitat</td>
-			<td><input type="text" name="habitat" value="<%= habitat %>" /></td>
-		</tr>
-	</table>
+				</tr>
+				<tr><td><br/></td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td><br/></td></tr>
+				<tr><td>
+						<input type="submit" name="ViewAll" value="View All" style = "Width: 1300%" />
+					</td>
+				</tr>
+			</table>
+	</div>
+	<div style="float:left">
+			<table width="45%" border="0">
+				<caption> Group </caption>
+				<tr>
+					<td><br/></td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td><input type="text" name="groupType" value="" /></td>
+				</tr>
+				<tr>
+					<td>Habitat</td>
+					<td><input type="text" name="groupHabitat" value="" /></td>
+				</tr>
+				<tr>
+					<td>Region</td>
+					<td><input type="text" name="groupRegion" value="" /></td>
+				</tr>
+				<tr>
+					<td>Evolution</td>
+					<td><input type="text" name="groupRegion" value="" /></td>
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="submit" name="Submit" value="Submit" /></td>
+				</tr>
+
+			</table>
+	</div>
+
+	<div style="float:left">
+		<table width="55%" border="0">
+			<tr><td><br/></td>
+			</tr>
+			<tr><td><br/></td>
+			</tr>
+
+		</table>
+
+	</div>
+
+	<div style="float:left">
+		<table width="25%" border="0" style="margin-left:100px;">
+			<caption> Sort </caption>
+			<tr><td><br/></td>
+				<td>
+					<select>
+						<option value="">...</option>
+						<option value="ascending">Ascending</option>
+						<option value="descending">Descending</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sort" value="Id" /> Id </td>
+
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sort" value="Name" />Name</td>
+
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sort" value="Type" />Type</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sort" value="Habitat" />Habitat</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sort" value="Weight" />Weight</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="radio" name="sort" value="Height" />Height</td>
+			</tr>
+
+		</table>
+
+	</div>
+
+
 
 </form>
 
-<<form action="/pokemon/group" method="post" name="form1">
 
-	<table width="25%" border="10">
-		<tr>
-			<td>Name</td>
-			<td><input type="text" name="type" value="<%= type %>" /></td>
-		</tr>
-		<tr>
-			<td>Type</td>
-			<td><input type="text" name="habitat" id="habitat" value="<%= habitat %>" /></td>
-		</tr>
-		<tr>
-			<td>Habitat</td>
-			<td><input type="text" name="region" value="<%= region %>" /></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" name="Submit" value="pokemon-submit" /></td>
-		</tr>
-	</table>
 
-</form>
 
-<<form action="/pokemon/sort" method="post" name="form1">
 
-	<table width="25%" border="10">
-		<tr>
-			<td>Sort</td>
-			<td>
-				<input type="radio" id="sortChoice1"
-					   name="sort" value="ascending">
-				<label for="sortChoice1">Ascending</label>
-
-				<input type="radio" id="contactChoice2"
-					   name="contact" value="descending">
-				<label for="sortChoice2">Descending</label>
-			</td>
-		</tr>
-		<tr>
-			<td>Id</td>
-			<td><input type="text" name="id" value="<%= id %>" /></td>
-		</tr>
-		<tr>
-			<td>Height</td>
-			<td><input type="text" name="height" id="type" value="<%= height %>" /></td>
-		</tr>
-		<tr>
-			<td>Weight</td>
-			<td><input type="text" name="weight" value="<%= weight %>" /></td>
-		</tr>
-	</table>
-
-</form>
 
 
 <!--

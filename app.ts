@@ -6,6 +6,7 @@ import {PokemonRoute} from "./routes/pokemon";
 
 import {IndexRoute} from "./routes/index";
 import User from "./backend/User";
+import PokemonQuery from "./backend/PokemonQuery";
 
 let express = require('express');
 let mysql = require('mysql');
@@ -27,6 +28,7 @@ export default class Main {
     };
 
     public static loggedInUser: User = new User();
+    public static currentPokemonFilterQuery: PokemonQuery = null;
     public static app = express();
     public static connection = mysql.createConnection(Main.dbOptions);
 
@@ -169,9 +171,18 @@ export default class Main {
             UsersRoute.logout(req, res);
         });
 
-        Main.app.use('/pokemon', (req: any, res: any) => {
+        /*Main.app.use('/pokemon', (req: any, res: any) => {
             PokemonRoute.get(req, res);
+        });*/
+
+        Main.app.get('/pokemon', (req: any, res: any) => {
+            PokemonRoute.showEvaluatePokemonForm(req, res);
         });
+
+        Main.app.post('/pokemon/evaluate', (req: any, res: any) => {
+            PokemonRoute.evaluatePokemon(req, res);
+        });
+
 
         Main.app.use('/gyms', (req: any, res: any) => {
             GymsRoute.get(req, res);
