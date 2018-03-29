@@ -1,0 +1,74 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include ../.././layouts/header.ejs %>
+
+<% if (messages.error) { %>
+<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+<p style="color:green"><%- messages.success %></p>
+<% } %>
+<!--<script>-->
+    <!--function submitUpdateName(id){-->
+        <!--console.log('test');-->
+        <!--var newName = document.getElementById("typeName-" + id).getAttribute('value');-->
+        <!--document.getElementById("frm-" + id).setAttribute('method', 'PUT');-->
+        <!--document.getElementById("frm-" + id).setAttribute('action', '/pokemon/types/update/' + id + '/' + newName);-->
+        <!--return true;-->
+    <!--}-->
+    <!--function submitDelete(id){-->
+
+        <!--if(confirm('Are you sure? Deleting a Pokemon type will delete ALL Pokemon of that type?')){-->
+            <!--document.getElementById("frm-" + id).setAttribute('method', 'DELETE');-->
+            <!--document.getElementById("frm-" + id).setAttribute('action', '/pokemon/types/delete/' + id)-->
+            <!--return true;-->
+        <!--}else{-->
+            <!--return false;-->
+        <!--}-->
+
+
+    <!--}-->
+<!--</script>-->
+
+<table width='80%' border=0>
+
+    <tr style='text-align:left; background-color:#CCC'>
+        <th>Type ID</th>
+        <th>Type Name</th>
+        <th>Action</th>
+    </tr>
+
+    <!--
+        Using FOREACH LOOP for the users array
+
+        myArray.forEach(function(el, index) {
+            // el - current element, i - index
+        });
+    -->
+    <% if (data) { %>
+    <% data.forEach(function(type){ %>
+    <tr>
+        <form method="post" action="/pokemon/types/edit/<%= type.typeId %>" style="float:right">
+            <td><%= type.typeId %></td>
+            <td><%= type.typeName %></td>
+            <td>
+                <div style="float:left">
+                    <a href='/pokemon/types/edit/<%= type.typeId %>/<%= type.typeName %>'>Edit</a> &nbsp;
+
+                    <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure? Deleting a Pokemon type will delete ALL Pokemon of that type?')" />
+                    <input type="hidden" name="_method" value="DELETE" />
+                </div>
+            </td>
+        </form>
+    </tr>
+    <% }) %>
+    <% } %>
+
+</table>
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../.././layouts/footer.ejs %>

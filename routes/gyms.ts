@@ -14,7 +14,7 @@ export class GymsRoute {
                     loggedInUser: Main.loggedInUser.getJson()
                 });
             } else {
-              console.log(rows);
+              // console.log(rows
                 res.render('gyms/list', {
                     title: 'Gyms List',
                     data: rows,

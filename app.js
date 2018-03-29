@@ -73,8 +73,20 @@ var Main = (function () {
         Main.app.get('/users/logout', function (req, res) {
             users_1.UsersRoute.logout(req, res);
         });
-        Main.app.use('/pokemon', function (req, res) {
+        Main.app.get('/pokemon', function (req, res) {
             pokemon_1.PokemonRoute.get(req, res);
+        });
+        Main.app.get('/pokemon/types', function (req, res) {
+            pokemon_1.PokemonRoute.managePokemonTypes(req, res);
+        });
+        Main.app.get('/pokemon/types/edit/(:typeId)/(:typeName)', function (req, res) {
+            pokemon_1.PokemonRoute.showFormUpdatePokemonTypeName(req, res);
+        });
+        Main.app.put('/pokemon/types/edit/(:typeId)', function (req, res) {
+            pokemon_1.PokemonRoute.updatePokemonTypeName(req, res);
+        });
+        Main.app.delete('/pokemon/types/edit/(:typeId)', function (req, res) {
+            pokemon_1.PokemonRoute.deletePokemonType(req, res);
         });
         Main.app.use('/gyms', function (req, res) {
             gyms_1.GymsRoute.get(req, res);

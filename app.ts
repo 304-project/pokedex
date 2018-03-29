@@ -169,8 +169,22 @@ export default class Main {
             UsersRoute.logout(req, res);
         });
 
-        Main.app.use('/pokemon', (req: any, res: any) => {
+        Main.app.get('/pokemon', (req: any, res: any) => {
             PokemonRoute.get(req, res);
+        });
+        Main.app.get('/pokemon/types', (req: any, res: any) => {
+            PokemonRoute.managePokemonTypes(req, res);
+        });
+
+
+        Main.app.get('/pokemon/types/edit/(:typeId)/(:typeName)', (req: any, res: any) => {
+            PokemonRoute.showFormUpdatePokemonTypeName(req, res);
+        });
+        Main.app.put('/pokemon/types/edit/(:typeId)', (req: any, res: any) => {
+           PokemonRoute.updatePokemonTypeName(req, res);
+        });
+        Main.app.delete('/pokemon/types/edit/(:typeId)', (req: any, res: any) => {
+            PokemonRoute.deletePokemonType(req, res);
         });
 
         Main.app.use('/gyms', (req: any, res: any) => {
