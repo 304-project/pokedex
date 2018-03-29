@@ -1,7 +1,6 @@
 //pokemon.js
 import Main from '../app';
 import * as express from "express"
-import Group from "../backend/Group";
 
 //const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
 const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId order by p.pokedexId asc';
@@ -57,8 +56,14 @@ export class PokemonRoute {
 
 
         let usedQuery = null ;
+        let tempval = req.body.groupValue;
 
-        const groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.'+ req.body.groupValue + ' from (' + query + ') sub group by sub.' + req.body.groupValue ;
+        if (tempval === 'Type'){ tempval = 'typeName';}
+        else if (tempval === 'Habitat'){ tempval = 'identifier';}
+        else if(tempval === 'Region'){tempval = 'identifier';}
+        else{}
+
+        const groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.'+ tempval + ' from (' + query + ') sub group by sub.' + tempval ;
 
         if ((req.body.groupEval === "") ||!(req.body.groupValue)){
             usedQuery = query ;
@@ -73,14 +78,13 @@ export class PokemonRoute {
 
 
 
-        /*const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +req.body.sortValue + ' ' +  req.body.sortDirection;
+        const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +req.body.sortValue + ' ' +  req.body.sortDirection;
 
-        if (req.body.sortDirection === "" || !(req.body.sortValue)){
+        if (req.body.sortDirection === "" || !(req.body.sortValeue)){
             //usedQuery = query ;
         }else{
             usedQuery = sortQuery;
-        }*/
-
+        }
 
 
         Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
@@ -93,10 +97,12 @@ export class PokemonRoute {
                 });
             } else if (!(req.body.groupEval === "") &&(req.body.groupValue)){
 
-                Main.currentGroup.setHeaders(req.body.groupEval , req.body.groupValue) ;
-
                 res.render('pokemon/group', {
                     title: 'Pokemon List',
+                    groupValue:req.body.groupValue ,
+                    groupHeader:tempval,
+                    groupEval:req.body.groupEval + '(pokedexId)',
+                    subGroupEval:req.body.groupEval + '(sub.pokedexId)',
                     data: rows,
                     loggedInUser: Main.loggedInUser.getJson()
                 });

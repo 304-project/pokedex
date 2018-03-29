@@ -9,22 +9,23 @@
 	<p style="color:green"><%- messages.success %></p>
 <% } %>
 
-<% let header1 = JSON.parse(currentGroup).header1 %>
-<% let header2 = JSON.parse(currentGroup).header2 %>
 
+<table id = "groupTable" width='40%' border=0>
 
-<table id = "groupTable" width='80%' border=0>
+    <% if (groupValue && groupEval) { %>
 
 	<tr style='text-align:left; background-color:#CCC'>
-		<th><%= header1%></th>
-		<th><%= header2 %></th>
+		<th style = 'width : 50%' ><%= groupEval%></th>
+		<th><%= groupValue%></th>
 	</tr>
+
+    <% } %>
 
     <% if (data) { %>
     <% data.forEach(function(pokemon){ %>
 	<tr>
-		<td><%= pokemon.typeName %></td>
-		<td><%= pokemon.header2 %></td>
+		<td><%= pokemon[subGroupEval] %></td>
+		<td><%= pokemon[groupHeader] %></td>
 	</tr>
     <% }) %>
     <% } %>

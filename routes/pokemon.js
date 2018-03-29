@@ -48,7 +48,18 @@ var PokemonRoute = (function () {
     };
     PokemonRoute.evaluatePokemon = function (req, res) {
         var usedQuery = null;
-        var groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.' + req.body.groupValue + ' from (' + query + ') sub group by sub.' + req.body.groupValue;
+        var tempval = req.body.groupValue;
+        if (tempval === 'Type') {
+            tempval = 'typeName';
+        }
+        else if (tempval === 'Habitat') {
+            tempval = 'identifier';
+        }
+        else if (tempval === 'Region') {
+            tempval = 'identifier';
+        }
+        else { }
+        var groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.' + tempval + ' from (' + query + ') sub group by sub.' + tempval;
         if ((req.body.groupEval === "") || !(req.body.groupValue)) {
             usedQuery = query;
         }
@@ -59,6 +70,12 @@ var PokemonRoute = (function () {
         console.log("im here");
         console.log("im here");
         console.log(usedQuery);
+        var sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' + req.body.sortValue + ' ' + req.body.sortDirection;
+        if (req.body.sortDirection === "" || !(req.body.sortValeue)) {
+        }
+        else {
+            usedQuery = sortQuery;
+        }
         app_1.default.connection.query(usedQuery, function (err, rows, fields) {
             if (err) {
                 req.flash('error', err);
@@ -69,9 +86,12 @@ var PokemonRoute = (function () {
                 });
             }
             else if (!(req.body.groupEval === "") && (req.body.groupValue)) {
-                app_1.default.currentGroup.setHeaders(req.body.groupEval, req.body.groupValue);
                 res.render('pokemon/group', {
                     title: 'Pokemon List',
+                    groupValue: req.body.groupValue,
+                    groupHeader: tempval,
+                    groupEval: req.body.groupEval + '(pokedexId)',
+                    subGroupEval: req.body.groupEval + '(sub.pokedexId)',
                     data: rows,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
