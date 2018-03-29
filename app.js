@@ -6,6 +6,7 @@ var gyms_1 = require("./routes/gyms");
 var pokemon_1 = require("./routes/pokemon");
 var index_1 = require("./routes/index");
 var User_1 = require("./backend/User");
+var Group_1 = require("./backend/Group");
 var express = require('express');
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
@@ -94,7 +95,7 @@ var Main = (function () {
         database: config_1.default.database.db
     };
     Main.loggedInUser = new User_1.default();
-    Main.currentPokemonFilterQuery = null;
+    Main.currentGroup = new Group_1.default();
     Main.app = express();
     Main.connection = mysql.createConnection(Main.dbOptions);
     return Main;

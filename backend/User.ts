@@ -2,7 +2,6 @@ import Main from '../app';
 
 export default class User{
     public isLoggedIn: boolean = false;
-
     private username: string;
     private password: string;
     private age: number;

@@ -36,7 +36,7 @@
 				<tr>
 					<td>Height</td>
 					<td>
-						<select>
+						<select name="filterHeight">
 							<option value="">...</option>
 							<option value="heightmax">Maximum</option>
 							<option value="heightmin">Minimum</option>
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<td>Weight</td>
-					<td><select>
+					<td><select name="filterWeight">
 							<option value="">...</option>
 							<option value="weightmax">Maximum</option>
 							<option value="weightmin">Minimum</option>
@@ -74,26 +74,41 @@
 	<div style="float:left">
 			<table width="45%" border="0">
 				<caption> Group </caption>
+				<tr><td><br/></td>
+					<td><select name="groupEval">
+							<option value="">...</option>
+							<option value="Count">Count</option>
+							<option value="Min">Maximum</option>
+							<option value="Max">Minimum</option>
+							<option value="Sum">Sum</option>
+							<option value="Avg">Avg</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="typeName" />Type</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="hIdentifier" />Habitat</td>
+				</tr>
+				<tr>
+					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="rIdentifier" />Region</td>
+				</tr>
 				<tr>
 					<td><br/></td>
 				</tr>
 				<tr>
-					<td>Type</td>
-					<td><input type="text" name="groupType" value="" /></td>
+					<td><br/></td>
 				</tr>
 				<tr>
-					<td>Habitat</td>
-					<td><input type="text" name="groupHabitat" value="" /></td>
+					<td><br/></td>
 				</tr>
 				<tr>
-					<td>Region</td>
-					<td><input type="text" name="groupRegion" value="" /></td>
+					<td><br/></td>
 				</tr>
-				<tr>
-					<td>Evolution</td>
-					<td><input type="text" name="groupRegion" value="" /></td>
-				</tr>
-				<tr><td></td></tr>
 				<tr>
 					<td><br/></td>
 					<td><input type="submit" name="Submit" value="Submit" /></td>
@@ -118,38 +133,38 @@
 			<caption> Sort </caption>
 			<tr><td><br/></td>
 				<td>
-					<select>
+					<select name="sortDirection">
 						<option value="">...</option>
-						<option value="ascending">Ascending</option>
-						<option value="descending">Descending</option>
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td><br/></td>
-				<td><input type="radio" name="sort" value="Id" /> Id </td>
+				<td><input type="radio" name="sortValue" value="pokedexId" /> Id </td>
 
 			</tr>
 			<tr>
 				<td><br/></td>
-				<td><input type="radio" name="sort" value="Name" />Name</td>
+				<td><input type="radio" name="sortValue" value="name" />Name</td>
 
 			</tr>
 			<tr>
 				<td><br/></td>
-				<td><input type="radio" name="sort" value="Type" />Type</td>
+				<td><input type="radio" name="sortValue" value="typename" />Type</td>
 			</tr>
 			<tr>
 				<td><br/></td>
-				<td><input type="radio" name="sort" value="Habitat" />Habitat</td>
+				<td><input type="radio" name="sortValue" value="identifier" />Habitat</td>
 			</tr>
 			<tr>
 				<td><br/></td>
-				<td><input type="radio" name="sort" value="Weight" />Weight</td>
+				<td><input type="radio" name="sortValue" value="weight" />Weight</td>
 			</tr>
 			<tr>
 				<td><br/></td>
-				<td><input type="radio" name="sort" value="Height" />Height</td>
+				<td><input type="radio" name="sortValue" value="height" />Height</td>
 			</tr>
 
 		</table>

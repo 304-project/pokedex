@@ -7,6 +7,7 @@ import {PokemonRoute} from "./routes/pokemon";
 import {IndexRoute} from "./routes/index";
 import User from "./backend/User";
 import PokemonQuery from "./backend/PokemonQuery";
+import Group from "./backend/Group";
 
 let express = require('express');
 let mysql = require('mysql');
@@ -28,7 +29,7 @@ export default class Main {
     };
 
     public static loggedInUser: User = new User();
-    public static currentPokemonFilterQuery: PokemonQuery = null;
+    public static currentGroup: Group = new Group() ;
     public static app = express();
     public static connection = mysql.createConnection(Main.dbOptions);
 

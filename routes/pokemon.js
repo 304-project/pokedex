@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
-var query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId ORDER BY p.pokedexId ASC';
+var query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId order by p.pokedexId asc';
 var PokemonRoute = (function () {
     function PokemonRoute() {
     }
@@ -31,38 +31,56 @@ var PokemonRoute = (function () {
             title: 'Pokemon',
             filterName: '',
             filterType: '',
+            filterId: '',
             filterHabitat: '',
-            groupType: '',
-            groupHabitat: '',
-            groupRegion: '',
-            sortId: '',
-            sortHeight: '',
-            sortWeight: '',
+            filterHeight: '',
+            filterHeight1: '',
+            filterHeight2: '',
+            filterWeight: '',
+            filterWeight1: '',
+            filterWeight2: '',
+            groupEval: '',
+            groupValue: '',
+            sortDirection: '',
+            sortValue: '',
             loggedInUser: app_1.default.loggedInUser.getJson()
         });
     };
     PokemonRoute.evaluatePokemon = function (req, res) {
-        app_1.default.connection.query(query, function (err, rows, fields) {
+        var usedQuery = null;
+        var groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.' + req.body.groupValue + ' from (' + query + ') sub group by sub.' + req.body.groupValue;
+        if ((req.body.groupEval === "") || !(req.body.groupValue)) {
+            usedQuery = query;
+        }
+        else {
+            usedQuery = groupQuery;
+        }
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(usedQuery);
+        app_1.default.connection.query(usedQuery, function (err, rows, fields) {
             if (err) {
                 req.flash('error', err);
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: '',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
+                });
+            }
+            else if (!(req.body.groupEval === "") && (req.body.groupValue)) {
+                app_1.default.currentGroup.setHeaders(req.body.groupEval, req.body.groupValue);
+                res.render('pokemon/group', {
+                    title: 'Pokemon List',
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson()
+                });
             }
             else {
-                app_1.default.connection.query(query, function (err, rows, fields) {
-                    if (err) {
-                        req.flash('error', err);
-                        res.render('pokemon/list', {
-                            title: 'Pokemon List',
-                            data: '',
-                            loggedInUser: app_1.default.loggedInUser.getJson()
-                        });
-                    }
-                    else {
-                        res.render('pokemon/list', {
-                            title: 'Pokemon List',
-                            data: rows,
-                            loggedInUser: app_1.default.loggedInUser.getJson()
-                        });
-                    }
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
         });

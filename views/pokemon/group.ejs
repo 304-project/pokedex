@@ -1,0 +1,39 @@
+
+<%- include ../layouts/header.ejs %>
+
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+<% let header1 = JSON.parse(currentGroup).header1 %>
+<% let header2 = JSON.parse(currentGroup).header2 %>
+
+
+<table id = "groupTable" width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th><%= header1%></th>
+		<th><%= header2 %></th>
+	</tr>
+
+    <% if (data) { %>
+    <% data.forEach(function(pokemon){ %>
+	<tr>
+		<td><%= pokemon.typeName %></td>
+		<td><%= pokemon.header2 %></td>
+	</tr>
+    <% }) %>
+    <% } %>
+
+</table>
+
+
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../layouts/footer.ejs %>

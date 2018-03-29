@@ -2,11 +2,10 @@ import Main from '../app';
 import {isNull} from "util";
 
 export default class PokemonQuery {
-    group: string[] = null;
-    where: string[] = null; //filter
-
-    sortAttributes: string[] = null;
-    sortOrder: string = null;
+    public group: string[] = null;
+    public where: string[] = null; //filter
+    public sortAttributes: string[] = null;
+    public sortOrder: string = null;
 
     reqBody: any;
     constructor(reqBody: any){
@@ -16,6 +15,7 @@ export default class PokemonQuery {
         this.parseSortOrder();
         this.parseSortAttributes();
     }
+
 
     private runQuery(): Promise<any>{
         let that = this;
