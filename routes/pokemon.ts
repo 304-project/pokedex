@@ -80,7 +80,7 @@ export class PokemonRoute {
 
         const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +req.body.sortValue + ' ' +  req.body.sortDirection;
 
-        if (req.body.sortDirection === "" || !(req.body.sortValeue)){
+        if (req.body.sortDirection === "" || !(req.body.sortValue)){
             //usedQuery = query ;
         }else{
             usedQuery = sortQuery;

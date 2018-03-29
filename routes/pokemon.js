@@ -71,7 +71,7 @@ var PokemonRoute = (function () {
         console.log("im here");
         console.log(usedQuery);
         var sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' + req.body.sortValue + ' ' + req.body.sortDirection;
-        if (req.body.sortDirection === "" || !(req.body.sortValeue)) {
+        if (req.body.sortDirection === "" || !(req.body.sortValue)) {
         }
         else {
             usedQuery = sortQuery;
