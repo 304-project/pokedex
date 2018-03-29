@@ -44,6 +44,7 @@ export class PokemonRoute {
             filterWeight1: '',
             filterWeight2: '',
             groupEval: '',
+            groupBy: '',
             groupValue: '',
             sortDirection: '',
             sortValue: '',
@@ -58,12 +59,22 @@ export class PokemonRoute {
         let usedQuery = null ;
         let tempval = req.body.groupValue;
 
+
         if (tempval === 'Type'){ tempval = 'typeName';}
         else if (tempval === 'Habitat'){ tempval = 'identifier';}
-        else if(tempval === 'Region'){tempval = 'identifier';}
         else{}
 
-        const groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.'+ tempval + ' from (' + query + ') sub group by sub.' + tempval ;
+        let tempval2 = req.body.groupBy;
+
+        if (tempval2 === 'Type'){ tempval2 = 'typeName';}
+        else if (tempval2 === 'Habitat'){ tempval2 = 'identifier';}
+        else{}
+
+        if (req.body.groupValue === req.body.groupBy){
+            tempval2 = "pokedexID"
+        }
+
+        const groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 +') as ' + req.body.groupEval + ',gsub.'+ tempval + ' from (' + query + ') gsub group by gsub.' + tempval ;
 
         if ((req.body.groupEval === "") ||!(req.body.groupValue)){
             usedQuery = query ;
@@ -71,20 +82,35 @@ export class PokemonRoute {
             usedQuery = groupQuery;
         }
 
+        let tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
+
+        let tempsortValue = req.body.sortValue;
+
+        if ((tempsortValue != 'typeName')&&(tempsortValue != 'Habitat')){
+            tempsortValue = req.body.groupEval ;
+            tempval3 = tempsortValue ;
+        }
+
         console.log("im here");
         console.log("im here");
-        console.log("im here");
-        console.log(usedQuery);
+        console.log("tempsortvalue");
+        console.log(tempsortValue);
 
 
 
-        const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +req.body.sortValue + ' ' +  req.body.sortDirection;
+        const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +tempsortValue + ' ' +  req.body.sortDirection;
 
-        if (req.body.sortDirection === "" || !(req.body.sortValeue)){
+        if (req.body.sortDirection === "" || !(req.body.sortValue)){
             //usedQuery = query ;
         }else{
             usedQuery = sortQuery;
         }
+
+
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(usedQuery);
 
 
         Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
@@ -101,14 +127,13 @@ export class PokemonRoute {
                     title: 'Pokemon List',
                     groupValue:req.body.groupValue ,
                     groupHeader:tempval,
-                    groupEval:req.body.groupEval + '(pokedexId)',
-                    subGroupEval:req.body.groupEval + '(sub.pokedexId)',
+                    groupEval:req.body.groupEval + '(' + req.body.groupBy+ ')',
+                    subGroupEval:tempval3,
                     data: rows,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
 
             }else {
-
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
                     data: rows,

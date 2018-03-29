@@ -40,6 +40,7 @@ var PokemonRoute = (function () {
             filterWeight1: '',
             filterWeight2: '',
             groupEval: '',
+            groupBy: '',
             groupValue: '',
             sortDirection: '',
             sortValue: '',
@@ -55,27 +56,45 @@ var PokemonRoute = (function () {
         else if (tempval === 'Habitat') {
             tempval = 'identifier';
         }
-        else if (tempval === 'Region') {
-            tempval = 'identifier';
+        else { }
+        var tempval2 = req.body.groupBy;
+        if (tempval2 === 'Type') {
+            tempval2 = 'typeName';
+        }
+        else if (tempval2 === 'Habitat') {
+            tempval2 = 'identifier';
         }
         else { }
-        var groupQuery = 'select ' + req.body.groupEval + '(sub.pokedexId),sub.' + tempval + ' from (' + query + ') sub group by sub.' + tempval;
+        if (req.body.groupValue === req.body.groupBy) {
+            tempval2 = "pokedexID";
+        }
+        var groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 + ') as ' + req.body.groupEval + ',gsub.' + tempval + ' from (' + query + ') gsub group by gsub.' + tempval;
         if ((req.body.groupEval === "") || !(req.body.groupValue)) {
             usedQuery = query;
         }
         else {
             usedQuery = groupQuery;
         }
+        var tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
+        var tempsortValue = req.body.sortValue;
+        if ((tempsortValue != 'typeName') && (tempsortValue != 'Habitat')) {
+            tempsortValue = req.body.groupEval;
+            tempval3 = tempsortValue;
+        }
         console.log("im here");
         console.log("im here");
-        console.log("im here");
-        console.log(usedQuery);
-        var sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' + req.body.sortValue + ' ' + req.body.sortDirection;
-        if (req.body.sortDirection === "" || !(req.body.sortValeue)) {
+        console.log("tempsortvalue");
+        console.log(tempsortValue);
+        var sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' + tempsortValue + ' ' + req.body.sortDirection;
+        if (req.body.sortDirection === "" || !(req.body.sortValue)) {
         }
         else {
             usedQuery = sortQuery;
         }
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(usedQuery);
         app_1.default.connection.query(usedQuery, function (err, rows, fields) {
             if (err) {
                 req.flash('error', err);
@@ -90,8 +109,8 @@ var PokemonRoute = (function () {
                     title: 'Pokemon List',
                     groupValue: req.body.groupValue,
                     groupHeader: tempval,
-                    groupEval: req.body.groupEval + '(pokedexId)',
-                    subGroupEval: req.body.groupEval + '(sub.pokedexId)',
+                    groupEval: req.body.groupEval + '(' + req.body.groupBy + ')',
+                    subGroupEval: tempval3,
                     data: rows,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
