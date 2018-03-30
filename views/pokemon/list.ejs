@@ -11,7 +11,11 @@
 
 
 <table width='80%' border=0>
-
+	<tr>
+        <% if (query) {%>
+        <%= query %>
+        <% } %>
+	</tr>
 	<tr style='text-align:left; background-color:#CCC'>
 		<th>Pokedex ID</th>
 		<th>Name</th>
@@ -35,6 +39,7 @@
 		</tr>
 	<% }) %>
 	<% } %>
+
 
 </table>
 

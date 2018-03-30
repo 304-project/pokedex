@@ -158,10 +158,10 @@ export class PokemonRoute {
     }
 
     public static evaluatePokemon(req: any, res: express.Response) {
-        let usedQuery = null ;
+        let usedQuery = "";
         let tempval = req.body.groupValue;
         var reqBody = {columns: '', from: ''};
-        // this.getColumns(req, reqBody);
+        this.getColumns(req, reqBody);
         // this.getFrom(req, reqBody);
         // this.getWhere(req, reqBody);
 
@@ -228,8 +228,10 @@ export class PokemonRoute {
                 });
 
             }else {
+                var q = JSON.stringify(usedQuery);
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
+                    query: usedQuery,
                     data: rows,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
@@ -241,7 +243,7 @@ export class PokemonRoute {
 
     }
 
-    public getColumns(req:any, reqBody: any){
+    public static getColumns(req:any, reqBody: any){
         for(var i in req.body) {
             if(i.indexOf("Column") > 0){
                 reqBody.columns += columnMap[i] + ", ";

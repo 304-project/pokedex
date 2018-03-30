@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53e4460e-7ce6-450f-a8f5-4184c0f28586" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/views/gyms/eval.ejs" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/views/gyms/join.ejs" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change beforePath="$PROJECT_DIR$/app.js.map" afterPath="$PROJECT_DIR$/app.js.map" />
-      <change beforePath="$PROJECT_DIR$/app.ts" afterPath="$PROJECT_DIR$/app.ts" />
-      <change beforePath="$PROJECT_DIR$/routes/gyms.js" afterPath="$PROJECT_DIR$/routes/gyms.js" />
-      <change beforePath="$PROJECT_DIR$/routes/gyms.js.map" afterPath="$PROJECT_DIR$/routes/gyms.js.map" />
-      <change beforePath="$PROJECT_DIR$/routes/gyms.ts" afterPath="$PROJECT_DIR$/routes/gyms.ts" />
       <change beforePath="$PROJECT_DIR$/routes/pokemon.js" afterPath="$PROJECT_DIR$/routes/pokemon.js" />
       <change beforePath="$PROJECT_DIR$/routes/pokemon.js.map" afterPath="$PROJECT_DIR$/routes/pokemon.js.map" />
       <change beforePath="$PROJECT_DIR$/routes/pokemon.ts" afterPath="$PROJECT_DIR$/routes/pokemon.ts" />
-      <change beforePath="$PROJECT_DIR$/views/gyms/list.ejs" afterPath="$PROJECT_DIR$/views/gyms/list.ejs" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/header.ejs" afterPath="$PROJECT_DIR$/views/layouts/header.ejs" />
+      <change beforePath="$PROJECT_DIR$/views/pokemon/list.ejs" afterPath="$PROJECT_DIR$/views/pokemon/list.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,85 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="join.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/gyms/join.ejs">
+      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/pokemon/list.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="8" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/gyms/list.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="192" column="29" lean-forward="true" selection-start-line="192" selection-start-column="29" selection-end-line="192" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#30#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gyms.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/gyms.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/layouts/header.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="footer.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/layouts/footer.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/pokemon/types/list.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="evaluate.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/pokemon/evaluate.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2951">
-              <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+            <state relative-caret-position="198">
+              <caret line="17" column="9" lean-forward="false" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -125,11 +44,31 @@
       <file leaf-file-name="pokemon.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/pokemon.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="132" column="27" lean-forward="true" selection-start-line="132" selection-start-column="27" selection-end-line="132" selection-end-column="27" />
+            <state relative-caret-position="243">
+              <caret line="231" column="0" lean-forward="false" selection-start-line="230" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
               <folding>
                 <element signature="e#13#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/gyms/list.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/pokemon/types/list.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,16 +82,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/views/user/add.ejs" />
-        <option value="$PROJECT_DIR$/views/pokemon/list.ejs" />
         <option value="$PROJECT_DIR$/routes/users.ts" />
         <option value="$PROJECT_DIR$/views/pokemon/evaluate.ejs" />
-        <option value="$PROJECT_DIR$/routes/pokemon.ts" />
         <option value="$PROJECT_DIR$/views/gyms/join.ejs" />
         <option value="$PROJECT_DIR$/views/gyms/eval.ejs" />
-        <option value="$PROJECT_DIR$/views/layouts/header.ejs" />
         <option value="$PROJECT_DIR$/app.ts" />
         <option value="$PROJECT_DIR$/views/gyms/list.ejs" />
         <option value="$PROJECT_DIR$/routes/gyms.ts" />
+        <option value="$PROJECT_DIR$/views/layouts/header.ejs" />
+        <option value="$PROJECT_DIR$/routes/pokemon.ts" />
+        <option value="$PROJECT_DIR$/views/pokemon/list.ejs" />
       </list>
     </option>
   </component>
@@ -210,12 +149,6 @@
               <item name="pokedex" type="b2602c69:ProjectViewProjectNode" />
               <item name="pokedex" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pokedex" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pokedex" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="gyms" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pokedex" type="b2602c69:ProjectViewProjectNode" />
@@ -291,35 +224,35 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522371823325</updated>
-      <workItem from="1522371825684" duration="12419000" />
+      <workItem from="1522371825684" duration="14802000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12419000" />
+    <option name="totallyTimeSpent" value="14802000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="960" y="24" width="960" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.303125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4105263" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.60625" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32842106" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39789474" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -365,7 +298,7 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -384,14 +317,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pokemon/list.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="8" column="40" lean-forward="false" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -432,63 +357,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/pokemon/types/list.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pokemon/evaluate.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2951">
-          <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/user/add.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/layouts/header.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="192" column="29" lean-forward="true" selection-start-line="192" selection-start-column="29" selection-end-line="192" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/gyms/list.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/pokemon.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="132" column="27" lean-forward="true" selection-start-line="132" selection-start-column="27" selection-end-line="132" selection-end-column="27" />
-          <folding>
-            <element signature="e#13#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -502,11 +375,71 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/gyms.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+        <state relative-caret-position="162">
+          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="192" column="29" lean-forward="true" selection-start-line="192" selection-start-column="29" selection-end-line="192" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layouts/header.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pokemon/evaluate.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2909">
+          <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/pokemon.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="231" column="0" lean-forward="false" selection-start-line="230" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
+          <folding>
+            <element signature="e#13#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/gyms/list.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pokemon/types/list.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pokemon/list.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="17" column="9" lean-forward="false" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
