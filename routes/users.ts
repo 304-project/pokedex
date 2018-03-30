@@ -198,6 +198,7 @@ export class UsersRoute {
                     res.render('user/add', {
                         title: 'Add New User',
                         name: user.name,
+                        password: user.password,
                         age: user.age,
                         email: user.email,
                         loggedInUser: Main.loggedInUser.getJson()
@@ -209,6 +210,7 @@ export class UsersRoute {
                     res.render('user/add', {
                         title: 'Add New User',
                         name: '',
+                        password: '',
                         age: '',
                         email: '',
                         loggedInUser: Main.loggedInUser.getJson()
@@ -230,6 +232,7 @@ export class UsersRoute {
             res.render('user/add', {
                 title: 'Add New User',
                 name: req.body.name,
+                password: req.body.password,
                 age: req.body.age,
                 email: req.body.email,
                 loggedInUser: Main.loggedInUser.getJson()
@@ -253,6 +256,7 @@ export class UsersRoute {
                     //data: rows[0],
                     id: rows[0].id,
                     name: rows[0].name,
+                    password: rows[0].password,
                     age: rows[0].age,
                     email: rows[0].email,
                     loggedInUser: Main.loggedInUser.getJson()

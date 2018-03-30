@@ -151,6 +151,7 @@ var UsersRoute = (function () {
                     res.render('user/add', {
                         title: 'Add New User',
                         name: user.name,
+                        password: user.password,
                         age: user.age,
                         email: user.email,
                         loggedInUser: app_1.default.loggedInUser.getJson()
@@ -161,6 +162,7 @@ var UsersRoute = (function () {
                     res.render('user/add', {
                         title: 'Add New User',
                         name: '',
+                        password: '',
                         age: '',
                         email: '',
                         loggedInUser: app_1.default.loggedInUser.getJson()
@@ -177,6 +179,7 @@ var UsersRoute = (function () {
             res.render('user/add', {
                 title: 'Add New User',
                 name: req.body.name,
+                password: req.body.password,
                 age: req.body.age,
                 email: req.body.email,
                 loggedInUser: app_1.default.loggedInUser.getJson()
@@ -196,6 +199,7 @@ var UsersRoute = (function () {
                     title: 'Edit User',
                     id: rows[0].id,
                     name: rows[0].name,
+                    password: rows[0].password,
                     age: rows[0].age,
                     email: rows[0].email,
                     loggedInUser: app_1.default.loggedInUser.getJson()
