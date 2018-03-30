@@ -159,6 +159,7 @@ export class UsersRoute {
         res.render('user/add', {
             title: 'Add New User (Admin function)',
             name: '',
+            password: '',
             age: '',
             email: '',
             loggedInUser: Main.loggedInUser.getJson()
@@ -168,6 +169,7 @@ export class UsersRoute {
     // ADD NEW USER POST ACTION
     public static addNewUser(req: any, res: express.Response) {
         req.assert('name', 'Name is required').notEmpty();           //Validate name
+        req.assert('password', 'Name is required').notEmpty();           //Validate pass
         req.assert('age', 'Age is required').notEmpty();             //Validate age
         req.assert('email', 'A valid email is required').isEmail();  //Validate email
         var errors = req.validationErrors();
@@ -182,6 +184,7 @@ export class UsersRoute {
              ********************************************/
             var user = {
                 name: req.sanitize('name').escape().trim(),
+                password: req.sanitize('password').escape().trim(),
                 age: req.sanitize('age').escape().trim(),
                 email: req.sanitize('email').escape().trim()
             };

@@ -184,7 +184,6 @@ export default class Main {
             PokemonRoute.managePokemonTypes(req, res);
         });
 
-
         Main.app.get('/pokemon/types/edit/(:typeId)/(:typeName)', (req: any, res: any) => {
             PokemonRoute.showFormUpdatePokemonTypeName(req, res);
         });

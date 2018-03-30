@@ -126,6 +126,7 @@ var UsersRoute = (function () {
         res.render('user/add', {
             title: 'Add New User (Admin function)',
             name: '',
+            password: '',
             age: '',
             email: '',
             loggedInUser: app_1.default.loggedInUser.getJson()
@@ -133,12 +134,14 @@ var UsersRoute = (function () {
     };
     UsersRoute.addNewUser = function (req, res) {
         req.assert('name', 'Name is required').notEmpty();
+        req.assert('password', 'Name is required').notEmpty();
         req.assert('age', 'Age is required').notEmpty();
         req.assert('email', 'A valid email is required').isEmail();
         var errors = req.validationErrors();
         if (!errors) {
             var user = {
                 name: req.sanitize('name').escape().trim(),
+                password: req.sanitize('password').escape().trim(),
                 age: req.sanitize('age').escape().trim(),
                 email: req.sanitize('email').escape().trim()
             };

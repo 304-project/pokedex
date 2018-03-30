@@ -5,8 +5,8 @@ import {isNull, isNullOrUndefined} from "util";
 import PokemonQuery from '../backend/PokemonQuery';
 
 //const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
-const origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId';
-const origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName';
+const origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId join evolvesinto e on p.pokedexId = e.evolvesFromId join pokemon p2 on p2.pokedexId = e.pokedexId';
+const origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName, p2.name as evolvesInto';
 const origSort = 'p.pokedexId';
 const origSortOrder = 'asc';
 var origBody = {'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder};

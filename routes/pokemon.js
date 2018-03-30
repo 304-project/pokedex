@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
 var PokemonQuery_1 = require("../backend/PokemonQuery");
-var origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId';
-var origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName';
+var origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId join evolvesinto e on p.pokedexId = e.evolvesFromId join pokemon p2 on p2.pokedexId = e.pokedexId';
+var origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName, p2.name as evolvesInto';
 var origSort = 'p.pokedexId';
 var origSortOrder = 'asc';
 var origBody = { 'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder };

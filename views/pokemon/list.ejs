@@ -19,6 +19,7 @@
 		<th>Weight</th>
 		<th>Type</th>
 		<th>Habitat</th>
+		<th>Evolves Into</th>
 	</tr>
 
 	<% if (data) { %>
@@ -30,6 +31,7 @@
 			<td><%= pokemon.weight %></td>
 			<td><%= pokemon.typeName%></td>
 			<td><%= pokemon.identifier %></td>
+			<td><%= pokemon.evolvesInto %></td>
 		</tr>
 	<% }) %>
 	<% } %>
