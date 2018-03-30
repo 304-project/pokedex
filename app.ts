@@ -194,9 +194,12 @@ export default class Main {
             PokemonRoute.deletePokemonType(req, res);
         });
 
-
-        Main.app.use('/gyms', (req: any, res: any) => {
+        Main.app.get('/gyms', (req: any, res: any) => {
             GymsRoute.get(req, res);
+        });
+
+        Main.app.post('/gyms/join', (req: any, res: any) => {
+            GymsRoute.join(req, res);
         });
 
         Main.app.listen(3000, function () {

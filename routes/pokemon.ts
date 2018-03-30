@@ -6,9 +6,18 @@ import PokemonQuery from '../backend/PokemonQuery';
 
 //const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
 const origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId join evolvesinto e on p.pokedexId = e.evolvesFromId join pokemon p2 on p2.pokedexId = e.pokedexId';
-const origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName, p2.name as evolvesInto';
+const origColumns = 'p.pokedexId, p.name, p.height, p.weight, identifier, typeName, p2.name as evolvesInto';
 const origSort = 'p.pokedexId';
 const origSortOrder = 'asc';
+const columnMap = {
+    nameColumn: 'p.name',
+    idColumn: 'p.pokedexId',
+    typeColumn: 'typeName',
+    heightColumn: 'p.height',
+    weightColumn: 'p.weight',
+    habitatColumn: 'identifier',
+    evolvesIntoColumn: 'p2.name'
+};
 var origBody = {'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder};
 var pq = new PokemonQuery();
 pq.setAndParseReqBody(origBody);
@@ -131,13 +140,13 @@ export class PokemonRoute {
             filterWeight: '',
             filterWeight1: '',
             filterWeight2: '',
-            idColumn: '',
-            nameColumn: '',
-            heightColumn: '',
-            weightColumn: '',
-            typeColumn: '',
-            habitatColumn: '',
-            evolvesIntoColumn: '',
+            idColumn: false,
+            nameColumn: false,
+            heightColumn: false,
+            weightColumn: false,
+            typeColumn: false,
+            habitatColumn: false,
+            evolvesIntoColumn: false,
             groupEval: '',
             groupBy: '',
             groupValue: '',
@@ -151,7 +160,10 @@ export class PokemonRoute {
     public static evaluatePokemon(req: any, res: express.Response) {
         let usedQuery = null ;
         let tempval = req.body.groupValue;
-
+        var reqBody = {columns: '', from: ''};
+        // this.getColumns(req, reqBody);
+        // this.getFrom(req, reqBody);
+        // this.getWhere(req, reqBody);
 
         if (tempval === 'Type'){ tempval = 'typeName';}
         else if (tempval === 'Habitat'){ tempval = 'identifier';}
@@ -226,6 +238,27 @@ export class PokemonRoute {
         });
 
 
+
+    }
+
+    public getColumns(req:any, reqBody: any){
+        for(var i in req.body) {
+            if(i.indexOf("Column") > 0){
+                reqBody.columns += columnMap[i] + ", ";
+            }
+        }
+        if(reqBody.columns.length == 0){
+            reqBody.columns = origColumns;
+        }
+        else{
+            reqBody.columns = reqBody.columns.substring(0, reqBody.columns.length-2);
+        }
+    }
+
+    public getFrom(req:any, reqBody: any){
+
+    }
+    public getWhere(req:any, reqBody: any){
 
     }
 

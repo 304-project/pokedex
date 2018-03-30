@@ -91,8 +91,11 @@ var Main = (function () {
         Main.app.delete('/pokemon/types/edit/(:typeId)', function (req, res) {
             pokemon_1.PokemonRoute.deletePokemonType(req, res);
         });
-        Main.app.use('/gyms', function (req, res) {
+        Main.app.get('/gyms', function (req, res) {
             gyms_1.GymsRoute.get(req, res);
+        });
+        Main.app.post('/gyms/join', function (req, res) {
+            gyms_1.GymsRoute.join(req, res);
         });
         Main.app.listen(3000, function () {
             console.log('Server running at port 3000: http://127.0.0.1:3000');
