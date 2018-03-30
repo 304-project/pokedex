@@ -12,6 +12,7 @@ export class GymsRoute {
                 res.render('gyms/list', {
                     title: 'Gyms List',
                     data: '',
+                    query: query,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
             } else {
@@ -19,15 +20,10 @@ export class GymsRoute {
                 res.render('gyms/list', {
                     title: 'Gyms List',
                     data: rows,
+                    query: query,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
             }
-        });
-    }
-
-    public static eval(req: any, res: express.Response){
-        res.render('gyms/eval', {
-            title: 'Eval List'
         });
     }
 
@@ -41,6 +37,7 @@ export class GymsRoute {
                     title: 'Join List',
                     data: '',
                     find: '',
+                    query: query,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
             } else {
@@ -48,6 +45,7 @@ export class GymsRoute {
                 res.render('gyms/join', {
                     title: 'Join List',
                     data: rows,
+                    query: query,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
             }

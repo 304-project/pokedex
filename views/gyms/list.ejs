@@ -10,7 +10,11 @@
 <% } %>
 
 <table width='80%' border=0>
-
+	<tr>
+        <% if (query) {%>
+        <%= query %>
+        <% } %>
+	</tr>
 	<tr style='text-align:left; background-color:#CCC'>
 		<th>Leader</th>
 		<th>Region</th>

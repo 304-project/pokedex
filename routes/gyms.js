@@ -14,6 +14,7 @@ var GymsRoute = (function () {
                 res.render('gyms/list', {
                     title: 'Gyms List',
                     data: '',
+                    query: query,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
@@ -21,14 +22,10 @@ var GymsRoute = (function () {
                 res.render('gyms/list', {
                     title: 'Gyms List',
                     data: rows,
+                    query: query,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
-        });
-    };
-    GymsRoute.eval = function (req, res) {
-        res.render('gyms/eval', {
-            title: 'Eval List'
         });
     };
     GymsRoute.join = function (req, res) {
@@ -41,6 +38,7 @@ var GymsRoute = (function () {
                     title: 'Join List',
                     data: '',
                     find: '',
+                    query: query,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
@@ -48,6 +46,7 @@ var GymsRoute = (function () {
                 res.render('gyms/join', {
                     title: 'Join List',
                     data: rows,
+                    query: query,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
