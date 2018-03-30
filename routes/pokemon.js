@@ -155,18 +155,18 @@ var PokemonRoute = (function () {
             nameDropAndOr: req.body.filterNameDropAndOr,
             nameVal: req.body.filterNameVal,
             nameCheck: req.body.filterNameCheck,
-            typeDropMaxMin: req.body.filterTypeDropMaxMin,
-            typeDropAndOr: req.body.filterTypeDropAndOr,
+            typeNameDropMaxMin: req.body.filterTypeDropMaxMin,
+            typeNameDropAndOr: req.body.filterTypeDropAndOr,
             typeNameVal: req.body.filterTypeVal,
-            typeCheck: req.body.filterTypeCheck,
-            IdDropMaxMin: req.body.filterIdDropMaxMin,
-            IdDropAndOr: req.body.filterIdDropAndOr,
-            IdVal: req.body.filterIdVal,
-            IdCheck: req.body.filterIdCheck,
-            HabitatDropMaxMin: req.body.filterHabitatDropMaxMin,
-            HabitatDropAndOr: req.body.filterHabitatDropAndOr,
-            HabitatVal: req.body.filterHabitatVal,
-            HabitatCheck: req.body.filterHabitatCheck,
+            typeNameCheck: req.body.filterTypeCheck,
+            pokedexIdDropMaxMin: req.body.filterIdDropMaxMin,
+            pokedexIdDropAndOr: req.body.filterIdDropAndOr,
+            pokedexIdVal: req.body.filterIdVal,
+            pokedexIdCheck: req.body.filterIdCheck,
+            identifierDropMaxMin: req.body.filterHabitatDropMaxMin,
+            identifierDropAndOr: req.body.filterHabitatDropAndOr,
+            identifierVal: req.body.filterHabitatVal,
+            identifierCheck: req.body.filterHabitatCheck,
             HeightDropMaxMin: req.body.filterHeightDropMaxMin,
             HeightDropAndOr: req.body.filterHeightDropAndOr,
             HeightVal: req.body.filterHeightVal,
@@ -179,16 +179,11 @@ var PokemonRoute = (function () {
             nameColumn: req.body.nameColumn,
             heightColumn: req.body.heightColumn,
             weightColumn: req.body.weightColumn,
-            typeColumn: req.body.typeColumn,
-            habitatColumn: req.body.habitatColumn,
+            typeNameColumn: req.body.typeColumn,
+            identifierColumn: req.body.habitatColumn,
             evolvesIntoColumn: req.body.evolvesIntoColumn
         };
         var filterQuery = pq.buildfilterQuery(query, filterVal);
-        console.log("im here");
-        console.log("im here");
-        console.log("im here");
-        console.log("im here... finally");
-        console.log(filterQuery);
         if (tempval === 'Type') {
             tempval = 'typeName';
         }
@@ -212,7 +207,7 @@ var PokemonRoute = (function () {
         else {
             usedQuery = groupQuery;
         }
-        if ((tempsortValue != 'typeName') && (tempsortValue != 'Habitat')) {
+        if ((tempsortValue != 'typeName') && (tempsortValue != 'Habitat') && (req.body.groupEval !== "")) {
             tempsortValue = req.body.groupEval;
             tempval3 = tempsortValue;
         }
@@ -222,6 +217,11 @@ var PokemonRoute = (function () {
         else {
             usedQuery = sortQuery;
         }
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(tempsortValue);
+        console.log(usedQuery);
         app_1.default.connection.query(usedQuery, function (err, rows, fields) {
             if (err) {
                 req.flash('error', err);
