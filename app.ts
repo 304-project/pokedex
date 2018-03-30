@@ -172,6 +172,14 @@ export default class Main {
         /*Main.app.use('/pokemon', (req: any, res: any) => {
             PokemonRoute.get(req, res);
         });*/
+        Main.app.get('/pokemon/division', (req: any, res: any) => {
+            PokemonRoute.showDivisionForm(req, res);
+        });
+        Main.app.post('/pokemon/division/query', (req: any, res: any) => {
+            PokemonRoute.doDivisionQuery(req, res);
+        });
+
+
 
         Main.app.get('/pokemon', (req: any, res: any) => {
             PokemonRoute.showEvaluatePokemonForm(req, res);

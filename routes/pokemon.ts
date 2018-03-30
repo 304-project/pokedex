@@ -42,6 +42,43 @@ export class PokemonRoute {
             }
         });
     }
+    public static doDivisionQuery(req: any, res: express.Response) {
+        let query2: string = "SELECT x.pokedexId, pokemon.name, pokemon.height, pokemon.weight FROM evolvesinto x JOIN pokemon ON x.pokedexId = pokemon.pokedexId, (SELECT * FROM `evolvesinto` WHERE pokedexId = " + req.body.pokedexId +  " GROUP BY evolutionChainId) y " +
+            "WHERE x.evolutionChainId = y.evolutionChainId AND x.pokedexId > " + req.body.pokedexId;
+        Main.connection.query(query2, (err: any, rows: any, fields: any) => {
+            if (err) {
+                req.flash('error', err);
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: '',
+                    loggedInUser: Main.loggedInUser.getJson()
+                });
+            } else {
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: rows,
+                    loggedInUser: Main.loggedInUser.getJson(),
+                    division: true
+                });
+            }
+        });
+    }
+    public static showDivisionForm(req: any, res: express.Response) {
+        let usedQuery: string = "select * from pokemon";
+
+        Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
+           // var data = [];
+            res.render('pokemon/division', {
+                title: 'Evolution search (division query)',
+                typeId: req.params.typeId,
+                typeName: req.params.typeName,
+                data: rows,
+                loggedInUser: Main.loggedInUser.getJson()
+            });
+        });
+    }
+
+
     public static managePokemonTypes(req: any, res: express.Response) { //, next: express.NextFunction){
         let query: string = "SELECT * FROM typeslist ORDER BY typeId ASC";
         Main.connection.query(query, (err: any, rows: any, fields: any) => {
@@ -61,6 +98,7 @@ export class PokemonRoute {
             }
         });
     }
+
     public static deletePokemonType(req: any, res: express.Response) {
         let sql: string = 'DELETE FROM typeslist WHERE typeId = ' + req.params.typeId;
         Main.connection.query(sql, function (err: any, result: any) {
