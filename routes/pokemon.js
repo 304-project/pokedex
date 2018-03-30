@@ -32,6 +32,75 @@ var PokemonRoute = (function () {
             }
         });
     };
+    PokemonRoute.managePokemonTypes = function (req, res) {
+        var query = "SELECT * FROM typeslist ORDER BY typeId ASC";
+        app_1.default.connection.query(query, function (err, rows, fields) {
+            if (err) {
+                req.flash('error', err);
+                res.render('pokemon/types/list', {
+                    title: 'Pokemon Types List',
+                    data: '',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
+                });
+            }
+            else {
+                res.render('pokemon/types/list', {
+                    title: 'Pokemon Types List',
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson()
+                });
+            }
+        });
+    };
+    PokemonRoute.deletePokemonType = function (req, res) {
+        var sql = 'DELETE FROM typeslist WHERE typeId = ' + req.params.typeId;
+        app_1.default.connection.query(sql, function (err, result) {
+            if (err) {
+                req.flash('error', err.message);
+                res.redirect('/pokemon/types');
+            }
+            else {
+                req.flash('success', 'Pokemon type and associated Pokemon deleted!');
+                res.redirect('/pokemon/types');
+            }
+        });
+    };
+    PokemonRoute.updatePokemonTypeName = function (req, res) {
+        var sql1 = 'SELECT * FROM typeslist WHERE typeName = "' + req.body.typeName + '"';
+        app_1.default.connection.query(sql1, function (err, result) {
+            if (err) {
+                req.flash('error', err);
+                res.redirect('/pokemon/types');
+            }
+            else {
+                if (result.length == 0) {
+                    var sql = 'UPDATE typeslist SET typeName = "' + req.body.typeName + '" WHERE typeId = ' + req.params.typeId;
+                    app_1.default.connection.query(sql, function (err, result) {
+                        if (err) {
+                            req.flash('error', err);
+                            res.redirect('/pokemon/types');
+                        }
+                        else {
+                            req.flash('success', 'Type updated successfully!');
+                            res.redirect('/pokemon/types');
+                        }
+                    });
+                }
+                else {
+                    req.flash('error', 'CONSTRAINT VIOLATED: Unable to change Pokemon type name to an existing name');
+                    res.redirect('/pokemon/types');
+                }
+            }
+        });
+    };
+    PokemonRoute.showFormUpdatePokemonTypeName = function (req, res) {
+        res.render('pokemon/types/edit', {
+            title: 'Edit Pokemon Type',
+            typeId: req.params.typeId,
+            typeName: req.params.typeName,
+            loggedInUser: app_1.default.loggedInUser.getJson()
+        });
+    };
     PokemonRoute.search = function (req, res) {
     };
     PokemonRoute.showEvaluatePokemonForm = function (req, res) {

@@ -16,7 +16,6 @@ var GymsRoute = (function () {
                 });
             }
             else {
-                console.log(rows);
                 res.render('gyms/list', {
                     title: 'Gyms List',
                     data: rows,
