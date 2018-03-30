@@ -1,5 +1,39 @@
 import Main from '../app';
-import {isNull} from "util";
+import {isNull, isUndefined} from "util";
+//
+// export interface filterQuery  {
+//     NameDropMaxMin: string,
+//     NameDropAndOr: string,
+//     NameVal: string,
+//     NameCheck: string,
+//     TypeDropMaxMin: string,
+//     TypeDropAndOr: string,
+//     TypeVal: string,
+//     TypeCheck: string,
+//     IdDropMaxMin: string,
+//     IdDropAndOr:string,
+//     IdVal: string,
+//     IdCheck: string,
+//     HabitatDropMaxMin: string,
+//     HabitatDropAndOr: string,
+//     HabitatVal:  string,
+//     HabitatCheck: string,
+//     HeightDropMaxMin: string,
+//     HeightDropAndOr: string,
+//     HeightVal: string,
+//     HeightCheck: string,
+//     WeightDropMaxMin: string,
+//     WeightDropAndOr: string,
+//     WeightVal: string,
+//     WeightCheck: string,
+//     idColumn: string,
+//     nameColumn: string,
+//     heightColumn: string,
+//     weightColumn: string,
+//     typeColumn: string,
+//     habitatColumn: string,
+//     evolvesIntoColumn: string
+// }
 
 export default class PokemonQuery {
     columns: string[] = null;
@@ -11,6 +45,7 @@ export default class PokemonQuery {
     sortOrder: string = null;
 
     reqBody: any;
+
     constructor(){
 
     }
@@ -45,6 +80,65 @@ export default class PokemonQuery {
         }
 
         return sql;
+    }
+    public buildfilterQuery(query:any , filterval : any): string{
+        let sql: string = "";
+
+        let thiscolumn :string = "" ;
+
+        for (var key in filterval) {
+            if (filterval.hasOwnProperty(key)) {
+                if ((key.indexOf("Column") > 0 ) && (filterval[key] != undefined)) {
+                    let item = key.substr(0, key.indexOf("Column"));
+                    thiscolumn += 'fsub.' + item + ', ';
+                }
+            }
+
+        }
+        let temp = "";
+
+        if (thiscolumn != ""){
+            sql += 'SELECT ' + thiscolumn.substr(0, thiscolumn.length-2) ;
+        }else {
+            sql += 'SELECT fsub.*'
+        }
+
+
+
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(thiscolumn);
+
+        sql +=  ' FROM (' + query + ') fsub' ;
+
+        let thiswhere :string = "" ;
+        let cond : string = "" ;
+        let item : string = "";
+
+        for (var key in filterval){
+            if (filterval.hasOwnProperty(key)) {
+                if ((key.indexOf("Val") > 0 ) && (filterval[key] != "")) {
+                    item = key.substr(0,key.indexOf("Val"));
+
+                    if ((filterval[item+'DropAndOr']!= "") && (filterval[item+'DropAndOr']!= undefined)){
+                        cond = filterval[item+"DropAndOr"] ;
+                        thiswhere += 'fsub.'+item + ' = ' + "'"+ filterval[key]+ "'" + ' ' +  cond + ' ';
+                    }else {
+                        thiswhere += 'fsub.'+item + ' = ' + "'" + filterval[key]+ "'" ;
+                    }
+                }
+            }
+        }
+
+        sql +=  ' WHERE ' + thiswhere ;
+
+        if ((thiscolumn == "") && (thiswhere == "")) {
+            return query
+        }else {
+            return sql;
+        }
+
     }
     private parseAll(): void{
         this.parseColumns();
