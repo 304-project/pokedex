@@ -73,6 +73,12 @@ var Main = (function () {
         Main.app.get('/users/logout', function (req, res) {
             users_1.UsersRoute.logout(req, res);
         });
+        Main.app.get('/pokemon/division', function (req, res) {
+            pokemon_1.PokemonRoute.showDivisionForm(req, res);
+        });
+        Main.app.post('/pokemon/division/query', function (req, res) {
+            pokemon_1.PokemonRoute.doDivisionQuery(req, res);
+        });
         Main.app.get('/pokemon', function (req, res) {
             pokemon_1.PokemonRoute.showEvaluatePokemonForm(req, res);
         });

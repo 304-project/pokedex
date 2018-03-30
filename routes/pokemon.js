@@ -41,6 +41,40 @@ var PokemonRoute = (function () {
             }
         });
     };
+    PokemonRoute.doDivisionQuery = function (req, res) {
+        var query2 = "SELECT x.pokedexId, pokemon.name, pokemon.height, pokemon.weight FROM evolvesinto x JOIN pokemon ON x.pokedexId = pokemon.pokedexId, (SELECT * FROM `evolvesinto` WHERE pokedexId = " + req.body.pokedexId + " GROUP BY evolutionChainId) y " +
+            "WHERE x.evolutionChainId = y.evolutionChainId AND x.pokedexId > " + req.body.pokedexId;
+        app_1.default.connection.query(query2, function (err, rows, fields) {
+            if (err) {
+                req.flash('error', err);
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: '',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
+                });
+            }
+            else {
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson(),
+                    division: true
+                });
+            }
+        });
+    };
+    PokemonRoute.showDivisionForm = function (req, res) {
+        var usedQuery = "select * from pokemon";
+        app_1.default.connection.query(usedQuery, function (err, rows, fields) {
+            res.render('pokemon/division', {
+                title: 'Evolution search (division query)',
+                typeId: req.params.typeId,
+                typeName: req.params.typeName,
+                data: rows,
+                loggedInUser: app_1.default.loggedInUser.getJson()
+            });
+        });
+    };
     PokemonRoute.managePokemonTypes = function (req, res) {
         var query = "SELECT * FROM typeslist ORDER BY typeId ASC";
         app_1.default.connection.query(query, function (err, rows, fields) {
