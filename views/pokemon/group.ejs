@@ -1,0 +1,40 @@
+
+<%- include ../layouts/header.ejs %>
+
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+
+<table id = "groupTable" width='40%' border=0>
+
+    <% if (groupValue && groupEval) { %>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th style = 'width : 50%' ><%= groupEval%></th>
+		<th><%= groupValue%></th>
+	</tr>
+
+    <% } %>
+
+    <% if (data) { %>
+    <% data.forEach(function(pokemon){ %>
+	<tr>
+		<td><%= pokemon[subGroupEval] %></td>
+		<td><%= pokemon[groupHeader] %></td>
+	</tr>
+    <% }) %>
+    <% } %>
+
+</table>
+
+
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../layouts/footer.ejs %>

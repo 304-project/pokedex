@@ -9,6 +9,7 @@
 	<p style="color:green"><%- messages.success %></p>
 <% } %>
 
+
 <table width='80%' border=0>
 
 	<tr style='text-align:left; background-color:#CCC'>
@@ -27,13 +28,14 @@
 			<td><%= pokemon.name %></td>
 			<td><%= pokemon.height %></td>
 			<td><%= pokemon.weight %></td>
-			<td><%= pokemon.typeName %></td>
+			<td><%= pokemon.typeName%></td>
 			<td><%= pokemon.identifier %></td>
 		</tr>
 	<% }) %>
 	<% } %>
 
 </table>
+
 
 <!--
 including footer content which is common for all pages

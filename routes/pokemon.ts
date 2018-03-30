@@ -2,10 +2,19 @@
 import Main from '../app';
 import * as express from "express"
 import {isNull, isNullOrUndefined} from "util";
+import PokemonQuery from '../backend/PokemonQuery';
 
-const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId ORDER BY p.pokedexId ASC';
+//const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
+const origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId';
+const origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName';
+const origSort = 'p.pokedexId';
+const origSortOrder = 'asc';
+var origBody = {'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder};
+var pq = new PokemonQuery();
+pq.setAndParseReqBody(origBody);
+var query = pq.buildSqlQuery();
+
 export class PokemonRoute {
-
     public static get(req: any, res: express.Response) { //, next: express.NextFunction){
         Main.connection.query(query, (err: any, rows: any, fields: any) => {
             if (err) {
@@ -110,89 +119,76 @@ export class PokemonRoute {
 
     public static showEvaluatePokemonForm(req: any, res: express.Response) {
 
-        console .log ("at least we get here");
-        console .log ("at least we get here");
-        console .log ("at least we get here");
-        console .log ("at least we get here");
-        console .log ("at least we get here");
-        console .log ("at least we get here");
-
-
         res.render('pokemon/evaluate', {
-            title: 'Pokemon Evaluate',
+            title: 'Pokemon',
             filterName: '',
             filterType: '',
+            filterId: '',
             filterHabitat: '',
-            groupType: '',
-            groupHabitat: '',
-            groupRegion: '',
-            sortId: '',
-            sortHeight:'',
-            sortWeight:''
+            filterHeight: '',
+            filterHeight1: '',
+            filterHeight2: '',
+            filterWeight: '',
+            filterWeight1: '',
+            filterWeight2: '',
+            groupEval: '',
+            groupBy: '',
+            groupValue: '',
+            sortDirection: '',
+            sortValue: '',
+            loggedInUser: Main.loggedInUser.getJson()
 
         });
     }
 
-    public static filterPokemon(req: any, res: express.Response) {
-
-        let temp:any = null ;
-        let filterQuery = 'SELECT * FROM pokemon WHERE ';
-
-
-        Main.connection.query(query, (err: any, rows: any, fields: any) => {
-            if (err) {
-                req.flash('error', err);
-
-            } else {
-                Main.connection.query(query, (err: any, rows: any, fields: any) => {
-                    if (err) {
-                        req.flash('error', err);
-                        res.render('pokemon/list', {
-                            title: 'Pokemon List',
-                            data: '',
-                            loggedInUser: Main.loggedInUser.getJson()
-                        });
-                    } else {
-
-                        res.render('pokemon/list', {
-                            title: 'Pokemon List',
-                            data: rows,
-                            loggedInUser: Main.loggedInUser.getJson()
-                        });
-
-                    }
-                });
-            }
-        });
+    public static evaluatePokemon(req: any, res: express.Response) {
+        let usedQuery = null ;
+        let tempval = req.body.groupValue;
 
 
-    }
+        if (tempval === 'Type'){ tempval = 'typeName';}
+        else if (tempval === 'Habitat'){ tempval = 'identifier';}
+        else{}
 
-    public static sortPokemon(req: any, res: express.Response) {
+        let tempval2 = req.body.groupBy;
+        let tempval4 = tempval2;
 
-        Main.connection.query(query, (err: any, rows: any, fields: any) => {
-            if (err) {
-                req.flash('error', err);
-                res.render('pokemon/list', {
-                    title: 'Pokemon List',
-                    data: '',
-                    loggedInUser: Main.loggedInUser.getJson()
-                });
-            } else {
-                res.render('pokemon/list', {
-                    title: 'Pokemon List',
-                    data: rows,
-                    loggedInUser: Main.loggedInUser.getJson()
-                });
-            }
-        });
+        if (tempval2 === 'Type'){ tempval2 = 'typeName';}
+        else if (tempval2 === 'Habitat'){ tempval2 = 'identifier';}
+        else{}
+
+        if (req.body.groupValue === req.body.groupBy){
+            tempval2 = 'pokedexId' ;
+            tempval4 = tempval2;
+        }
+
+        const groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 +') as ' + req.body.groupEval + ',gsub.'+ tempval + ' from (' + query + ') gsub group by gsub.' + tempval ;
+
+        if ((req.body.groupEval === "") ||!(req.body.groupValue)){
+            usedQuery = query ;
+        }else{
+            usedQuery = groupQuery;
+        }
+
+        let tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
+
+        let tempsortValue = req.body.sortValue;
+
+        if ((tempsortValue != 'typeName')&&(tempsortValue != 'Habitat')){
+            tempsortValue = req.body.groupEval ;
+            tempval3 = tempsortValue ;
+        }
 
 
-    }
+        const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +tempsortValue + ' ' +  req.body.sortDirection;
 
-    public static groupPokemon(req: any, res: express.Response) {
+        if (req.body.sortDirection === "" || !(req.body.sortValue)){
+            //usedQuery = query ;
+        }else{
+            usedQuery = sortQuery;
+        }
 
-        Main.connection.query(query, (err: any, rows: any, fields: any) => {
+        Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
             if (err) {
                 req.flash('error', err);
                 res.render('pokemon/list', {
@@ -200,16 +196,31 @@ export class PokemonRoute {
                     data: '',
                     loggedInUser: Main.loggedInUser.getJson()
                 });
-            } else {
+            } else if (!(req.body.groupEval === "") &&(req.body.groupValue)){
+
+                res.render('pokemon/group', {
+                    title: 'Pokemon List',
+                    groupValue:req.body.groupValue ,
+                    groupHeader:tempval,
+                    groupEval:req.body.groupEval + '(' + tempval2 + ')',
+                    subGroupEval:tempval3,
+                    data: rows,
+                    loggedInUser: Main.loggedInUser.getJson()
+                });
+
+            }else {
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
                     data: rows,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
+
             }
         });
 
 
+
     }
+
 
 }

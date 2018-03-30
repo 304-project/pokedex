@@ -74,7 +74,10 @@ var Main = (function () {
             users_1.UsersRoute.logout(req, res);
         });
         Main.app.get('/pokemon', function (req, res) {
-            pokemon_1.PokemonRoute.get(req, res);
+            pokemon_1.PokemonRoute.showEvaluatePokemonForm(req, res);
+        });
+        Main.app.post('/pokemon/evaluate', function (req, res) {
+            pokemon_1.PokemonRoute.evaluatePokemon(req, res);
         });
         Main.app.get('/pokemon/types', function (req, res) {
             pokemon_1.PokemonRoute.managePokemonTypes(req, res);

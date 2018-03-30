@@ -1,6 +1,5 @@
 import Main from '../app';
 import * as express from "express"
-import User from "../backend/User";
 
 // SHOW LIST OF USERS
 
