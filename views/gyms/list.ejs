@@ -10,13 +10,18 @@
 <% } %>
 
 <table width='80%' border=0>
-
+	<tr>
+        <% if (query) {%>
+        <%= query %>
+        <% } %>
+	</tr>
 	<tr style='text-align:left; background-color:#CCC'>
 		<th>Leader</th>
 		<th>Region</th>
 		<th>Location</th>
 		<th>Type</th>
     	<th>Badge</th>
+		<th>Find pokemon of type: </th>
 	</tr>
 
     <% if (data) { %>
@@ -27,6 +32,13 @@
 		<td><%= g.locationName %></td>
 		<td><%= g.typeName %></td>
 		<td><%= g.badge %></td>
+		<td>
+			<form action="/gyms/join" method="post" name="form2">
+				<input type="submit" name="find" id="find" value=<%= g.typeName %> />
+			</form>
+		</td>
+
+		</td>
 	</tr>
     <% }) %>
     <% } %>

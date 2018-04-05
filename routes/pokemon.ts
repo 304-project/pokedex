@@ -6,9 +6,18 @@ import PokemonQuery from '../backend/PokemonQuery';
 
 //const query = 'select p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName from pokemon p join pokemontypes pt on p.pokedexId = pt.pokedexId join habitats h on p.habitatId = h.habitatId join typeslist t on pt.typeId = t.typeId';
 const origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId join evolvesinto e on p.pokedexId = e.evolvesFromId join pokemon p2 on p2.pokedexId = e.pokedexId';
-const origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName, p2.name as evolvesInto';
+const origColumns = 'p.pokedexId, p.name, p.height, p.weight, identifier, typeName, p2.name as evolvesInto';
 const origSort = 'p.pokedexId';
 const origSortOrder = 'asc';
+const columnMap = {
+    nameColumn: 'p.name',
+    idColumn: 'p.pokedexId',
+    typeColumn: 'typeName',
+    heightColumn: 'p.height',
+    weightColumn: 'p.weight',
+    habitatColumn: 'identifier',
+    evolvesIntoColumn: 'p2.name'
+};
 var origBody = {'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder};
 var pq = new PokemonQuery();
 pq.setAndParseReqBody(origBody);
@@ -34,6 +43,43 @@ export class PokemonRoute {
             }
         });
     }
+    public static doDivisionQuery(req: any, res: express.Response) {
+        let query2: string = "SELECT x.pokedexId, pokemon.name, pokemon.height, pokemon.weight FROM evolvesinto x JOIN pokemon ON x.pokedexId = pokemon.pokedexId, (SELECT * FROM `evolvesinto` WHERE pokedexId = " + req.body.pokedexId +  " GROUP BY evolutionChainId) y " +
+            "WHERE x.evolutionChainId = y.evolutionChainId AND x.pokedexId > " + req.body.pokedexId;
+        Main.connection.query(query2, (err: any, rows: any, fields: any) => {
+            if (err) {
+                req.flash('error', err);
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: '',
+                    loggedInUser: Main.loggedInUser.getJson()
+                });
+            } else {
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: rows,
+                    loggedInUser: Main.loggedInUser.getJson(),
+                    division: true
+                });
+            }
+        });
+    }
+    public static showDivisionForm(req: any, res: express.Response) {
+        let usedQuery: string = "select * from pokemon";
+
+        Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
+           // var data = [];
+            res.render('pokemon/division', {
+                title: 'Evolution search (division query)',
+                typeId: req.params.typeId,
+                typeName: req.params.typeName,
+                data: rows,
+                loggedInUser: Main.loggedInUser.getJson()
+            });
+        });
+    }
+
+
     public static managePokemonTypes(req: any, res: express.Response) { //, next: express.NextFunction){
         let query: string = "SELECT * FROM typeslist ORDER BY typeId ASC";
         Main.connection.query(query, (err: any, rows: any, fields: any) => {
@@ -53,6 +99,7 @@ export class PokemonRoute {
             }
         });
     }
+
     public static deletePokemonType(req: any, res: express.Response) {
         let sql: string = 'DELETE FROM typeslist WHERE typeId = ' + req.params.typeId;
         Main.connection.query(sql, function (err: any, result: any) {
@@ -161,8 +208,6 @@ export class PokemonRoute {
     }
 
     public static evaluatePokemon(req: any, res: express.Response) {
-
-
         let usedQuery = null ;
         let tempval = req.body.groupValue;
         let tempval2 = req.body.groupBy;
@@ -207,7 +252,6 @@ export class PokemonRoute {
         const filterQuery = pq.buildfilterQuery(query, filterVal);
 
         //const filterQuery = 'select fsub.* from (' + query + ') fsub where' ;
-
 
         if (tempval === 'Type'){ tempval = 'typeName';}
         else if (tempval === 'Habitat'){ tempval = 'identifier';}
@@ -271,8 +315,10 @@ export class PokemonRoute {
                 });
 
             }else {
+                var q = JSON.stringify(usedQuery);
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
+                    query: usedQuery,
                     data: rows,
                     loggedInUser: Main.loggedInUser.getJson()
                 });
@@ -281,6 +327,27 @@ export class PokemonRoute {
         });
 
 
+
+    }
+
+    public static getColumns(req:any, reqBody: any){
+        for(var i in req.body) {
+            if(i.indexOf("Column") > 0){
+                reqBody.columns += columnMap[i] + ", ";
+            }
+        }
+        if(reqBody.columns.length == 0){
+            reqBody.columns = origColumns;
+        }
+        else{
+            reqBody.columns = reqBody.columns.substring(0, reqBody.columns.length-2);
+        }
+    }
+
+    public getFrom(req:any, reqBody: any){
+
+    }
+    public getWhere(req:any, reqBody: any){
 
     }
 

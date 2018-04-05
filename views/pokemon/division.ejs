@@ -1,0 +1,29 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include .././layouts/header.ejs %>
+
+<% if (messages.error) { %>
+<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+<p style="color:green"><%- messages.success %></p>
+<% } %>
+<p>Through this query, you can find all Pokemon who have evolved from a selected Pokemon. For example, you can find all Pokemon that evolved from bulbasaur</p>
+<form action="/pokemon/division/query" method="post" name="form1">
+    <select name="pokedexId">
+        <% if (data) { %>
+        <% data.forEach(function(pokemon){ %>
+        <option value="<%= pokemon.pokedexId %>"><%= pokemon.name %></option>
+        <% }) %>
+        <% } %>
+        <option value=""></option>
+    </select>
+    <input type="submit" />
+</form>
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include .././layouts/footer.ejs %>

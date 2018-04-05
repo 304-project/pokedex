@@ -11,15 +11,23 @@
 
 
 <table width='80%' border=0>
-
+	<tr>
+        <% if (query) {%>
+        <%= query %>
+        <% } %>
+	</tr>
 	<tr style='text-align:left; background-color:#CCC'>
 		<th>Pokedex ID</th>
 		<th>Name</th>
 		<th>Height</th>
 		<th>Weight</th>
-		<th>Type</th>
-		<th>Habitat</th>
-		<th>Evolves Into</th>
+
+		<!--vince-->
+		<% if ((typeof division == 'undefined')) { %>
+			<th>Type</th>
+			<th>Habitat</th>
+			<th>Evolves Into</th>
+		<% } %>
 	</tr>
 
 	<% if (data) { %>
@@ -29,12 +37,17 @@
 			<td><%= pokemon.name %></td>
 			<td><%= pokemon.height %></td>
 			<td><%= pokemon.weight %></td>
-			<td><%= pokemon.typeName%></td>
-			<td><%= pokemon.identifier %></td>
-			<td><%= pokemon.evolvesInto %></td>
+
+			<!--vince-->
+			<% if ((typeof division == 'undefined')) { %>
+				<td><%= pokemon.typeName%></td>
+				<td><%= pokemon.identifier %></td>
+				<td><%= pokemon.evolvesInto %></td>
+			<% } %>
 		</tr>
 	<% }) %>
 	<% } %>
+
 
 </table>
 

@@ -3,9 +3,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("../app");
 var PokemonQuery_1 = require("../backend/PokemonQuery");
 var origJoin = 'pokemon p join typeslist t on p.typeId = t.typeId join habitats h on p.habitatId = h.habitatId join evolvesinto e on p.pokedexId = e.evolvesFromId join pokemon p2 on p2.pokedexId = e.pokedexId';
-var origColumns = 'p.pokedexId, p.name, p.height, p.weight, h.identifier, t.typeName, p2.name as evolvesInto';
+var origColumns = 'p.pokedexId, p.name, p.height, p.weight, identifier, typeName, p2.name as evolvesInto';
 var origSort = 'p.pokedexId';
 var origSortOrder = 'asc';
+var columnMap = {
+    nameColumn: 'p.name',
+    idColumn: 'p.pokedexId',
+    typeColumn: 'typeName',
+    heightColumn: 'p.height',
+    weightColumn: 'p.weight',
+    habitatColumn: 'identifier',
+    evolvesIntoColumn: 'p2.name'
+};
 var origBody = { 'columns': origColumns, 'from': origJoin, 'sortAttributes': origSort, 'sortOrder': origSortOrder };
 var pq = new PokemonQuery_1.default();
 pq.setAndParseReqBody(origBody);
@@ -30,6 +39,40 @@ var PokemonRoute = (function () {
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
+        });
+    };
+    PokemonRoute.doDivisionQuery = function (req, res) {
+        var query2 = "SELECT x.pokedexId, pokemon.name, pokemon.height, pokemon.weight FROM evolvesinto x JOIN pokemon ON x.pokedexId = pokemon.pokedexId, (SELECT * FROM `evolvesinto` WHERE pokedexId = " + req.body.pokedexId + " GROUP BY evolutionChainId) y " +
+            "WHERE x.evolutionChainId = y.evolutionChainId AND x.pokedexId > " + req.body.pokedexId;
+        app_1.default.connection.query(query2, function (err, rows, fields) {
+            if (err) {
+                req.flash('error', err);
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: '',
+                    loggedInUser: app_1.default.loggedInUser.getJson()
+                });
+            }
+            else {
+                res.render('pokemon/list', {
+                    title: 'Pokemon List',
+                    data: rows,
+                    loggedInUser: app_1.default.loggedInUser.getJson(),
+                    division: true
+                });
+            }
+        });
+    };
+    PokemonRoute.showDivisionForm = function (req, res) {
+        var usedQuery = "select * from pokemon";
+        app_1.default.connection.query(usedQuery, function (err, rows, fields) {
+            res.render('pokemon/division', {
+                title: 'Evolution search (division query)',
+                typeId: req.params.typeId,
+                typeName: req.params.typeName,
+                data: rows,
+                loggedInUser: app_1.default.loggedInUser.getJson()
+            });
         });
     };
     PokemonRoute.managePokemonTypes = function (req, res) {
@@ -144,7 +187,7 @@ var PokemonRoute = (function () {
         });
     };
     PokemonRoute.evaluatePokemon = function (req, res) {
-        var usedQuery = null;
+        var usedQuery = "";
         var tempval = req.body.groupValue;
         var tempval2 = req.body.groupBy;
         var tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
@@ -243,13 +286,32 @@ var PokemonRoute = (function () {
                 });
             }
             else {
+                var q = JSON.stringify(usedQuery);
                 res.render('pokemon/list', {
                     title: 'Pokemon List',
+                    query: usedQuery,
                     data: rows,
                     loggedInUser: app_1.default.loggedInUser.getJson()
                 });
             }
         });
+    };
+    PokemonRoute.getColumns = function (req, reqBody) {
+        for (var i in req.body) {
+            if (i.indexOf("Column") > 0) {
+                reqBody.columns += columnMap[i] + ", ";
+            }
+        }
+        if (reqBody.columns.length == 0) {
+            reqBody.columns = origColumns;
+        }
+        else {
+            reqBody.columns = reqBody.columns.substring(0, reqBody.columns.length - 2);
+        }
+    };
+    PokemonRoute.prototype.getFrom = function (req, reqBody) {
+    };
+    PokemonRoute.prototype.getWhere = function (req, reqBody) {
     };
     return PokemonRoute;
 }());

@@ -172,6 +172,14 @@ export default class Main {
         /*Main.app.use('/pokemon', (req: any, res: any) => {
             PokemonRoute.get(req, res);
         });*/
+        Main.app.get('/pokemon/division', (req: any, res: any) => {
+            PokemonRoute.showDivisionForm(req, res);
+        });
+        Main.app.post('/pokemon/division/query', (req: any, res: any) => {
+            PokemonRoute.doDivisionQuery(req, res);
+        });
+
+
 
         Main.app.get('/pokemon', (req: any, res: any) => {
             PokemonRoute.showEvaluatePokemonForm(req, res);
@@ -194,9 +202,12 @@ export default class Main {
             PokemonRoute.deletePokemonType(req, res);
         });
 
-
-        Main.app.use('/gyms', (req: any, res: any) => {
+        Main.app.get('/gyms', (req: any, res: any) => {
             GymsRoute.get(req, res);
+        });
+
+        Main.app.post('/gyms/join', (req: any, res: any) => {
+            GymsRoute.join(req, res);
         });
 
         Main.app.listen(3000, function () {
