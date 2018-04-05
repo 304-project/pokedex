@@ -40,6 +40,54 @@ var PokemonQuery = (function () {
         }
         return sql;
     };
+    PokemonQuery.prototype.buildfilterQuery = function (query, filterval) {
+        var sql = "";
+        var thiscolumn = "";
+        for (var key in filterval) {
+            if (filterval.hasOwnProperty(key)) {
+                if ((key.indexOf("Column") > 0) && (filterval[key] != undefined)) {
+                    var item_1 = key.substr(0, key.indexOf("Column"));
+                    thiscolumn += 'fsub.' + item_1 + ', ';
+                }
+            }
+        }
+        var temp = "";
+        if (thiscolumn != "") {
+            sql += 'SELECT ' + thiscolumn.substr(0, thiscolumn.length - 2);
+        }
+        else {
+            sql += 'SELECT fsub.*';
+        }
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(thiscolumn);
+        sql += ' FROM (' + query + ') fsub';
+        var thiswhere = "";
+        var cond = "";
+        var item = "";
+        for (var key in filterval) {
+            if (filterval.hasOwnProperty(key)) {
+                if ((key.indexOf("Val") > 0) && (filterval[key] != "")) {
+                    item = key.substr(0, key.indexOf("Val"));
+                    if ((filterval[item + 'DropAndOr'] != "") && (filterval[item + 'DropAndOr'] != undefined)) {
+                        cond = filterval[item + "DropAndOr"];
+                        thiswhere += 'fsub.' + item + ' = ' + "'" + filterval[key] + "'" + ' ' + cond + ' ';
+                    }
+                    else {
+                        thiswhere += 'fsub.' + item + ' = ' + "'" + filterval[key] + "'";
+                    }
+                }
+            }
+        }
+        sql += ' WHERE ' + thiswhere;
+        if ((thiscolumn == "") && (thiswhere == "")) {
+            return query;
+        }
+        else {
+            return sql;
+        }
+    };
     PokemonQuery.prototype.parseAll = function () {
         this.parseColumns();
         this.parseFrom();

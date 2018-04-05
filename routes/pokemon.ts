@@ -24,6 +24,7 @@ pq.setAndParseReqBody(origBody);
 var query = pq.buildSqlQuery();
 
 export class PokemonRoute {
+
     public static get(req: any, res: express.Response) { //, next: express.NextFunction){
         Main.connection.query(query, (err: any, rows: any, fields: any) => {
             if (err) {
@@ -160,31 +161,42 @@ export class PokemonRoute {
         });
     }
 
-    public static search(req: any, res: express.Response){
-        
-    }
 
     public static showEvaluatePokemonForm(req: any, res: express.Response) {
 
         res.render('pokemon/evaluate', {
             title: 'Pokemon',
-            filterName: '',
-            filterType: '',
-            filterId: '',
-            filterHabitat: '',
-            filterHeight: '',
-            filterHeight1: '',
-            filterHeight2: '',
-            filterWeight: '',
-            filterWeight1: '',
-            filterWeight2: '',
-            idColumn: false,
-            nameColumn: false,
-            heightColumn: false,
-            weightColumn: false,
-            typeColumn: false,
-            habitatColumn: false,
-            evolvesIntoColumn: false,
+            filterNameDropMaxMin: '',
+            filterNameDropAndOr: '',
+            filterNameVal: '',
+            filterNameCheck: '',
+            filterTypeDropMaxMin: '',
+            filterTypeDropAndOr: '',
+            filterTypeVal: '',
+            filterTypeCheck: '',
+            filterIdDropMaxMin: '',
+            filterIdDropAndOr: '',
+            filterIdVal: '',
+            filterIdCheck: '',
+            filterHabitatDropMaxMin: '',
+            filterHabitatDropAndOr: '',
+            filterHabitatVal: '',
+            filterHabitatCheck: '',
+            filterHeightDropMaxMin: '',
+            filterHeightDropAndOr: '',
+            filterHeightVal: '',
+            filterHeightCheck: '',
+            filterWeightDropMaxMin: '',
+            filterWeightDropAndOr: '',
+            filterWeightVal: '',
+            filterWeightCheck: '',
+            idColumn: '',
+            nameColumn: '',
+            heightColumn: '',
+            weightColumn: '',
+            typeColumn: '',
+            habitatColumn: '',
+            evolvesIntoColumn: '',
             groupEval: '',
             groupBy: '',
             groupValue: '',
@@ -196,54 +208,91 @@ export class PokemonRoute {
     }
 
     public static evaluatePokemon(req: any, res: express.Response) {
-        let usedQuery = "";
+        let usedQuery = null ;
         let tempval = req.body.groupValue;
-        var reqBody = {columns: '', from: ''};
-        this.getColumns(req, reqBody);
-        // this.getFrom(req, reqBody);
-        // this.getWhere(req, reqBody);
+        let tempval2 = req.body.groupBy;
+        let tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
+        let tempsortValue = req.body.sortValue;
+        let tempval4 = tempval2;
+
+        let filterVal :any = {
+            nameDropMaxMin: req.body.filterNameDropMaxMin,
+            nameDropAndOr: req.body.filterNameDropAndOr,
+            nameVal:  req.body.filterNameVal,
+            nameCheck: req.body.filterNameCheck,
+            typeNameDropMaxMin: req.body.filterTypeDropMaxMin,
+            typeNameDropAndOr: req.body.filterTypeDropAndOr,
+            typeNameVal: req.body.filterTypeVal,
+            typeNameCheck: req.body.filterTypeCheck,
+            pokedexIdDropMaxMin: req.body.filterIdDropMaxMin,
+            pokedexIdDropAndOr: req.body.filterIdDropAndOr,
+            pokedexIdVal: req.body.filterIdVal,
+            pokedexIdCheck: req.body.filterIdCheck,
+            identifierDropMaxMin: req.body.filterHabitatDropMaxMin,
+            identifierDropAndOr: req.body.filterHabitatDropAndOr,
+            identifierVal:  req.body.filterHabitatVal,
+            identifierCheck: req.body.filterHabitatCheck,
+            HeightDropMaxMin: req.body.filterHeightDropMaxMin,
+            HeightDropAndOr: req.body.filterHeightDropAndOr,
+            HeightVal: req.body.filterHeightVal,
+            HeightCheck: req.body.filterHeightCheck,
+            WeightDropMaxMin: req.body.filterWeightDropMaxMin,
+            WeightDropAndOr: req.body.filterWeightDropAndOr,
+            WeightVal: req.body.filterWeightVal,
+            WeightCheck: req.body.filterWeightCheck,
+            pokedexIdColumn: req.body.idColumn,
+            nameColumn: req.body.nameColumn,
+            heightColumn: req.body.heightColumn,
+            weightColumn: req.body.weightColumn,
+            typeNameColumn: req.body.typeColumn,
+            identifierColumn: req.body.habitatColumn,
+            evolvesIntoColumn: req.body.evolvesIntoColumn
+        } ;
+
+        const filterQuery = pq.buildfilterQuery(query, filterVal);
+
+        //const filterQuery = 'select fsub.* from (' + query + ') fsub where' ;
 
         if (tempval === 'Type'){ tempval = 'typeName';}
         else if (tempval === 'Habitat'){ tempval = 'identifier';}
-        else{}
-
-        let tempval2 = req.body.groupBy;
-        let tempval4 = tempval2;
 
         if (tempval2 === 'Type'){ tempval2 = 'typeName';}
         else if (tempval2 === 'Habitat'){ tempval2 = 'identifier';}
-        else{}
+
 
         if (req.body.groupValue === req.body.groupBy){
             tempval2 = 'pokedexId' ;
             tempval4 = tempval2;
         }
 
-        const groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 +') as ' + req.body.groupEval + ',gsub.'+ tempval + ' from (' + query + ') gsub group by gsub.' + tempval ;
+        const groupQuery = 'select ' + req.body.groupEval + '(gsub.' + tempval2 +') as ' + req.body.groupEval + ',gsub.'+ tempval + ' from (' + filterQuery + ') gsub group by gsub.' + tempval ;
 
         if ((req.body.groupEval === "") ||!(req.body.groupValue)){
-            usedQuery = query ;
+            usedQuery = filterQuery ;
         }else{
             usedQuery = groupQuery;
         }
 
-        let tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
 
-        let tempsortValue = req.body.sortValue;
 
-        if ((tempsortValue != 'typeName')&&(tempsortValue != 'Habitat')){
+        if ((tempsortValue != 'typeName')&&(tempsortValue != 'Habitat')&&(req.body.groupEval !== "")){
             tempsortValue = req.body.groupEval ;
             tempval3 = tempsortValue ;
         }
-
-
         const sortQuery = 'select sub.* from (' + usedQuery + ') sub order by sub.' +tempsortValue + ' ' +  req.body.sortDirection;
 
         if (req.body.sortDirection === "" || !(req.body.sortValue)){
-            //usedQuery = query ;
+
         }else{
             usedQuery = sortQuery;
         }
+
+        console.log("im here");
+        console.log("im here");
+        console.log("im here");
+        console.log(tempsortValue);
+        console.log(usedQuery);
+
 
         Main.connection.query(usedQuery, ( err: any, rows: any, fields: any ) => {
             if (err) {

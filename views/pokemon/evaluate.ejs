@@ -14,51 +14,110 @@
 	<div style="float:left">
 			<table width="45%" border="0">
 				<caption> Filter </caption>
-				<tr>
-					<td><br/></td>
-				</tr>
+				
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="filterName" id="name" value="" /></td>
+					<td>
+						<select name="filterNameDropMaxMin">
+							<option value="">...</option>
+							<option value="max">Max</option>
+							<option value="min">Min</option>
+						</select>
+						<select name="filterNameDropAndOr">
+							<option value="">...</option>
+							<option value="and">And</option>
+							<option value="or">Or</option>
+						</select>
+						<input type="text" name="filterNameVal" id="name" value="" />
+					</td>
+					<td><input type="radio" name="filterNameCheck" value="Type" /></td>
 				</tr>
 				<tr>
 					<td>Id</td>
-					<td><input type="text" name="filterId" id="id" value="" /></td>
+					<td>
+						<select name="filterIdDropMaxMin">
+							<option value="">...</option>
+							<option value="max">Max</option>
+							<option value="min">Min</option>
+						</select>
+						<select name="filterIdDropAndOr">
+							<option value="">...</option>
+							<option value="and">And</option>
+							<option value="or">Or</option>
+						</select>
+						<input type="text" name="filterIdVal" id="id" value="" />
+					</td>
+					<td><input type="radio" name="filterIdCheck" value="Type" /></td>
 				</tr>
 				<tr>
 					<td>Type</td>
-					<td><input type="text" name="filterType" id="type" value="" /></td>
+					<td>
+						<select name="filterTypeDropMaxMin">
+							<option value="">...</option>
+							<option value="max">Max</option>
+							<option value="min">Min</option>
+						</select>
+						<select name="filterTypeDropAndOr">
+							<option value="">...</option>
+							<option value="and">And</option>
+							<option value="or">Or</option>
+						</select>
+						<input type="text" name="filterTypeVal" id="type" value="" />
+					</td>
+					<td><input type="radio" name="filterTypeCheck" value="Type" /></td>
 				</tr>
+
 				<tr>
 					<td>Habitat</td>
-					<td><input type="text" name="filterHabitat" value="" /></td>
+					<td>
+						<select name="filterHabitatDropMaxMin">
+							<option value="">...</option>
+							<option value="max">Max</option>
+							<option value="min">Min</option>
+						</select>
+						<select name="filterHabitatDropAndOr">
+							<option value="">...</option>
+							<option value="and">And</option>
+							<option value="or">Or</option>
+						</select>
+						<input type="text" name="filterHabitatVal" value="" />
+					</td>
+					<td><input type="radio" name="filterHabitatCheck" value="Type" /></td>
 				</tr>
+
 				<tr>
 					<td>Height</td>
 					<td>
-						<select name="filterHeight">
+						<select name="filterHeightDropMaxMin">
 							<option value="">...</option>
-							<option value="heightmax">Maximum</option>
-							<option value="heightmin">Minimum</option>
-							<option value="heightvalue">Value</option>
-							<option value="heightRange">Range</option>
+							<option value="max">Max</option>
+							<option value="min">Min</option>
 						</select>
-						<input type="text" name="filterHeight1" value="" /><br/>
-						<input type="text" name="filterHeight2" value="" /><br/>
+						<select name="filterHeightDropAndOr">
+							<option value="">...</option>
+							<option value="and">And</option>
+							<option value="or">Or</option>
+						</select>
+						<input type="text" name="filterHeightVal" value="" /><br/>
 					</td>
+					<td><input type="radio" name="filterHeightCheck" value="Type" /></td>
 				</tr>
+
 				<tr>
 					<td>Weight</td>
-					<td><select name="filterWeight">
+					<td><select name="filterWeightDropMaxMin">
 							<option value="">...</option>
-							<option value="weightmax">Maximum</option>
-							<option value="weightmin">Minimum</option>
-							<option value="weightvalue">Value</option>
-							<option value="weightRange">Range</option>
+							<option value="max">Max</option>
+							<option value="min">Min</option>
 						</select>
-						<input type="text" name="filterWeight1" value="" /><br/>
-						<input type="text" name="filterWeight2" value="" /><br/>
+						<select name="filterWeightDropAndOr">
+							<option value="">...</option>
+							<<option value="and">And</option>
+							<option value="or">Or</option>
+						</select>
+						<input type="text" name="filterWeightVal" value="" /><br/>
 					</td>
+					<td><input type="radio" name="filterWeightCheck" value="Type" /></td>
 
 				</tr>
 				<tr>
@@ -85,9 +144,6 @@
 						<input type="checkbox" name="evolvesIntoColumn" value="" />
 						<label for="evolves into">evolves into</label>
 
-
-
-
 					</td>
 
 				</tr>
@@ -96,7 +152,7 @@
 				<tr><td><br/></td></tr>
 				<tr><td><br/></td></tr>
 				<tr><td>
-						<input type="submit" name="ViewAll" value="View All" style = "Width: 1300%" />
+						<input type="submit" name="ViewAll" value="View All" style = "Width: 1250%" />
 					</td>
 				</tr>
 			</table>
@@ -140,19 +196,15 @@
 				</tr>
 				<tr>
 					<td><br/></td>
+					<td><input type="radio" name="groupValue" value="EvolvesInto" />Type</td>
 				</tr>
 				<tr>
 					<td><br/></td>
+					<td><input type="radio" name="groupValue" value=weight />Weight</td>
 				</tr>
 				<tr>
 					<td><br/></td>
-				</tr>
-				<tr>
-					<td><br/></td>
-				</tr>
-				<tr>
-					<td><br/></td>
-					<td><input type="submit" name="Submit" value="Submit" /></td>
+					<td><input type="radio" name="groupValue" value="height" />Height</td>
 				</tr>
 
 			</table>
@@ -206,6 +258,31 @@
 			<tr>
 				<td><br/></td>
 				<td><input type="radio" name="sortValue" value="height" />Height</td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+			</tr>
+			<tr>
+				<td><br/></td>
+				<td><input type="submit" name="Submit" value="Submit" align="right" /></td>
 			</tr>
 
 		</table>
