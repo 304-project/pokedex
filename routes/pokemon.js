@@ -187,7 +187,7 @@ var PokemonRoute = (function () {
         });
     };
     PokemonRoute.evaluatePokemon = function (req, res) {
-        var usedQuery = "";
+        var usedQuery = null;
         var tempval = req.body.groupValue;
         var tempval2 = req.body.groupBy;
         var tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
@@ -295,23 +295,6 @@ var PokemonRoute = (function () {
                 });
             }
         });
-    };
-    PokemonRoute.getColumns = function (req, reqBody) {
-        for (var i in req.body) {
-            if (i.indexOf("Column") > 0) {
-                reqBody.columns += columnMap[i] + ", ";
-            }
-        }
-        if (reqBody.columns.length == 0) {
-            reqBody.columns = origColumns;
-        }
-        else {
-            reqBody.columns = reqBody.columns.substring(0, reqBody.columns.length - 2);
-        }
-    };
-    PokemonRoute.prototype.getFrom = function (req, reqBody) {
-    };
-    PokemonRoute.prototype.getWhere = function (req, reqBody) {
     };
     return PokemonRoute;
 }());

@@ -1,39 +1,5 @@
 import Main from '../app';
 import {isNull, isUndefined} from "util";
-//
-// export interface filterQuery  {
-//     NameDropMaxMin: string,
-//     NameDropAndOr: string,
-//     NameVal: string,
-//     NameCheck: string,
-//     TypeDropMaxMin: string,
-//     TypeDropAndOr: string,
-//     TypeVal: string,
-//     TypeCheck: string,
-//     IdDropMaxMin: string,
-//     IdDropAndOr:string,
-//     IdVal: string,
-//     IdCheck: string,
-//     HabitatDropMaxMin: string,
-//     HabitatDropAndOr: string,
-//     HabitatVal:  string,
-//     HabitatCheck: string,
-//     HeightDropMaxMin: string,
-//     HeightDropAndOr: string,
-//     HeightVal: string,
-//     HeightCheck: string,
-//     WeightDropMaxMin: string,
-//     WeightDropAndOr: string,
-//     WeightVal: string,
-//     WeightCheck: string,
-//     idColumn: string,
-//     nameColumn: string,
-//     heightColumn: string,
-//     weightColumn: string,
-//     typeColumn: string,
-//     habitatColumn: string,
-//     evolvesIntoColumn: string
-// }
 
 export default class PokemonQuery {
     columns: string[] = null;
@@ -93,7 +59,6 @@ export default class PokemonQuery {
                     thiscolumn += 'fsub.' + item + ', ';
                 }
             }
-
         }
         let temp = "";
 
@@ -103,12 +68,6 @@ export default class PokemonQuery {
             sql += 'SELECT fsub.*'
         }
 
-
-
-        console.log("im here");
-        console.log("im here");
-        console.log("im here");
-        console.log(thiscolumn);
 
         sql +=  ' FROM (' + query + ') fsub' ;
 
@@ -131,7 +90,11 @@ export default class PokemonQuery {
             }
         }
 
-        sql +=  ' WHERE ' + thiswhere ;
+        if (thiswhere == ""){
+
+        }else {
+            sql +=  ' WHERE ' + thiswhere ;
+        }
 
         if ((thiscolumn == "") && (thiswhere == "")) {
             return query

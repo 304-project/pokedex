@@ -58,10 +58,6 @@ var PokemonQuery = (function () {
         else {
             sql += 'SELECT fsub.*';
         }
-        console.log("im here");
-        console.log("im here");
-        console.log("im here");
-        console.log(thiscolumn);
         sql += ' FROM (' + query + ') fsub';
         var thiswhere = "";
         var cond = "";
@@ -80,7 +76,11 @@ var PokemonQuery = (function () {
                 }
             }
         }
-        sql += ' WHERE ' + thiswhere;
+        if (thiswhere == "") {
+        }
+        else {
+            sql += ' WHERE ' + thiswhere;
+        }
         if ((thiscolumn == "") && (thiswhere == "")) {
             return query;
         }

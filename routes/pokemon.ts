@@ -208,7 +208,7 @@ export class PokemonRoute {
     }
 
     public static evaluatePokemon(req: any, res: express.Response) {
-        let usedQuery = null ;
+        let usedQuery :any = null ;
         let tempval = req.body.groupValue;
         let tempval2 = req.body.groupBy;
         let tempval3 = req.body.groupEval + '(sub.' + tempval2 + ')';
@@ -330,7 +330,7 @@ export class PokemonRoute {
 
     }
 
-    public static getColumns(req:any, reqBody: any){
+   /* public static getColumns(req:any, reqBody: any){
         for(var i in req.body) {
             if(i.indexOf("Column") > 0){
                 reqBody.columns += columnMap[i] + ", ";
@@ -349,7 +349,7 @@ export class PokemonRoute {
     }
     public getWhere(req:any, reqBody: any){
 
-    }
+    }*/
 
 
 }
